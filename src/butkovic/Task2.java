@@ -1,3 +1,5 @@
+package butkovic;
+
 import javax.swing.*;
 
 public class Task2 {
