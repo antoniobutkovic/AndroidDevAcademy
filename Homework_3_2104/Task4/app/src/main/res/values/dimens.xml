@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margintop_bmicalculator_imageview">20dp</dimen>
+    <dimen name="margintop_bmicalculator_resulttextview">20dp</dimen>
+    <dimen name="margintop_bmicalculator_button">10dp</dimen>
+</resources>

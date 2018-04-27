@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageview_portfolio_profileimg"
+        app:civ_border_width="@dimen/borderwidth_portfolio_profileimg"
+        android:layout_margin="@dimen/margin_portfolio_profileimg"
+        app:civ_border_color="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ime i prezime"
+        style="@style/TextViewInfoStyle" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Antonio Butković"
+        style="@style/TextViewInfoStyle"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adresa"
+        style="@style/TextViewInfoStyle"
+        android:layout_marginTop="@dimen/margintop_portfolio_sidetextview"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vinkovačka 13, Đakovo"
+        style="@style/TextViewInfoStyle"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Broj mobitela"
+        style="@style/TextViewInfoStyle"
+        android:layout_marginTop="@dimen/margintop_portfolio_sidetextview"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0976991067"
+        style="@style/TextViewInfoStyle"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E-mail adresa"
+        style="@style/TextViewInfoStyle"
+        android:layout_marginTop="@dimen/margintop_portfolio_sidetextview"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="antonio.butkoviic@gmail.com"
+        style="@style/TextViewInfoStyle"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LinkedIn"
+        style="@style/TextViewInfoStyle"
+        android:layout_marginTop="@dimen/margintop_portfolio_sidetextview"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="antonio-butkovic"
+        style="@style/TextViewInfoStyle"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GitHub"
+        style="@style/TextViewInfoStyle"
+        android:layout_marginTop="@dimen/margintop_portfolio_sidetextview"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="antoniobutkovic"
+        style="@style/TextViewInfoStyle"/>
+
+
+
+</LinearLayout>

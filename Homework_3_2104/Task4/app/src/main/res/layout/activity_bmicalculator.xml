@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ada.osc.task4.BmiCalculatorActivity"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_bmicalculator_resulttext"
+        style="@style/TextViewResultStyle"/>
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_bmicalculator_descriptiontext"
+        android:layout_below="@id/textview_bmicalculator_resulttext"
+        style="@style/TextViewResultStyle"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext_bmicalculator_height"
+        android:hint="@string/bmicalculator_heighthint"
+        android:layout_above="@id/edittext_bmicalculator_weight"
+        android:textColor="@color/colorTextWhite"
+        android:layout_centerHorizontal="true"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextWhite"
+        android:hint="@string/bmicalculator_weighthint"
+        android:id="@+id/edittext_bmicalculator_weight"
+        android:layout_centerInParent="true"
+        android:inputType="numberDecimal"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_bmicalculator_calculate"
+        android:text="@string/bmicalculator_buttontext"
+        android:textColor="@color/colorTextWhite"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margintop_bmicalculator_button"
+        android:layout_below="@id/edittext_bmicalculator_weight"
+        android:background="@color/colorPrimaryDark"/>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageview_bmicalculator_resultimg"
+        android:layout_below="@id/button_bmicalculator_calculate"
+        android:layout_marginTop="@dimen/margintop_bmicalculator_imageview"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

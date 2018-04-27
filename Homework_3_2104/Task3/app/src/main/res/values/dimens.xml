@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_portfolio_profileimg">10dp</dimen>
+    <dimen name="borderwidth_portfolio_profileimg">5dp</dimen>
+    <dimen name="margintop_portfolio_sidetextview">10dp</dimen>
+    <dimen name="leftmargin_portfolio_view">95dp</dimen>
+    <dimen name="textview_portfolio_contenttext">10sp</dimen>
+    <dimen name="margin_portfolio_contenttext">10dp</dimen>
+    <dimen name="margin_portfolio_knowledgetext">10dp</dimen>
+</resources>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Task3</string>
+    <string name="portfolio_facultydesc">Fakultet elektrotehnike, računarstva i informacijskih tehnologija Osijek\n\nPreddiplomski stručni studij, smjer Informatika</string>
+    <string name="portfolio_highsdesc">Ekonomska škola braće Radić Đakovo</string>
+    <string name="portfolio_primarydesc">OŠ Vladimira Nazora Đakovo</string>
+    <string name="portfolio_job1desc">IPSOS d.o.o. Agencija za istraživanje tržišta i javnog mnijenja\n\nStudentski posao telefonskog anketiranja putem internet veze od kuće</string>
+    <string name="portfolio_job2desc">Siemens Convergence Creators d.o.o.\n\nObavljanje stručne prakse u trajanju od 7 tjedana</string>
+    <string name="portfolio_moredesc">- Izrada Android aplikacija u Android Studiju koristeći programski jezik Java\n- Osnovno znanje programskih jezika C, C++ i SQL stečenih na fakultetu\n- Pretraživanje Interneta u potrazi za rješenjima\n- Dobro korištenje Photoshopa\n- Posjedujem vozačku dozvolu B kategorije\n- Engleski jezik: čitanje: C1 pisanje: B2 govor: B1</string>
+    <string name="portfolio_educationtext">Obrazovanje</string>
+    <string name="portfolio_experiencetext">Radno iskustvo</string>
+    <string name="portfolio_knowledgetext">Dodatna zanja</string>
+    <string name="portfolio_facultyyears">2014. - danas</string>
+    <string name="portfolio_highsyears">2010. - 2014.</string>
+    <string name="portfolio_primaryyears">2002. - 2010.</string>
+    <string name="portfolio_ipsosyears">2016. - danas</string>
+    <string name="portfolio_siemesyears">2016. - 2017.</string>
+</resources>

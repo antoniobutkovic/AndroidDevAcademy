@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="ada.osc.task3.PortfolioActivity">
+
+    <include android:id="@+id/news_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/sideblock_portfolio"
+        android:layout_weight="0.7"/>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.4">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryLight">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_obrazovanje"
+                android:text="@string/portfolio_educationtext"
+                style="@style/TextViewHeadersStyle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_iskustvo"
+                android:text="@string/portfolio_experiencetext"
+                style="@style/TextViewHeadersStyle"
+                android:layout_below="@id/view_portfolio_view1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_dodatno"
+                android:text="@string/portfolio_knowledgetext"
+                style="@style/TextViewHeadersStyle"
+                android:layout_below="@id/view_portfolio_view2" />
+
+            <View
+                android:id="@+id/view_portfolio_view1"
+                android:layout_width="1dp"
+                android:layout_height="195dp"
+                android:layout_below="@+id/textview_portfolio_obrazovanje"
+                android:layout_toLeftOf="@+id/textview_portfolio_ipsos"
+                android:layout_toStartOf="@+id/textview_portfolio_ipsos"
+                android:background="@color/colorAccent" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="210dp"
+                android:id="@+id/view_portfolio_view2"
+                android:background="@color/colorAccent"
+                android:layout_marginLeft="@dimen/leftmargin_portfolio_view"
+                android:layout_below="@id/textview_portfolio_iskustvo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_fakultetgodine"
+                android:text="@string/portfolio_facultyyears"
+                style="@style/TextViewContentTextStyle"
+                android:layout_below="@id/textview_portfolio_obrazovanje"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_srednjagodine"
+                android:text="@string/portfolio_highsyears"
+                style="@style/TextViewContentTextStyle"
+                android:layout_below="@id/textview_portfolio_fakultet"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_osnovnagodine"
+                android:text="@string/portfolio_primaryyears"
+                style="@style/TextViewContentTextStyle"
+                android:layout_below="@id/textview_portfolio_srednja"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_fakultet"
+                android:layout_below="@id/textview_portfolio_obrazovanje"
+                style="@style/TextViewContentTextStyle"
+                android:text="@string/portfolio_facultydesc"
+                android:layout_toRightOf="@id/view_portfolio_view1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_srednja"
+                android:layout_below="@id/textview_portfolio_fakultet"
+                android:text="@string/portfolio_highsdesc"
+                style="@style/TextViewContentTextStyle"
+                android:layout_toRightOf="@id/view_portfolio_view1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_osnovna"
+                android:layout_below="@id/textview_portfolio_srednja"
+                android:text="@string/portfolio_primarydesc"
+                android:layout_margin="10dp"
+                style="@style/TextViewContentTextStyle"
+                android:layout_toRightOf="@id/view_portfolio_view1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_ipsosgodine"
+                android:layout_below="@id/textview_portfolio_iskustvo"
+                style="@style/TextViewContentTextStyle"
+                android:text="@string/portfolio_ipsosyears"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_siemensgodine"
+                android:layout_below="@id/textview_portfolio_ipsos"
+                style="@style/TextViewContentTextStyle"
+                android:text="@string/portfolio_siemesyears"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_ipsos"
+                android:layout_toRightOf="@id/view_portfolio_view2"
+                android:text="@string/portfolio_job1desc"
+                android:layout_below="@id/textview_portfolio_iskustvo"
+                style="@style/TextViewContentTextStyle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_siemens"
+                android:layout_toRightOf="@id/view_portfolio_view2"
+                android:text="@string/portfolio_job2desc"
+                style="@style/TextViewContentTextStyle"
+                android:layout_below="@id/textview_portfolio_ipsos" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_portfolio_dodatnaiskustva"
+                android:layout_below="@id/textview_portfolio_dodatno"
+                android:textSize="@dimen/textview_portfolio_contenttext"
+                android:text="@string/portfolio_moredesc"
+                android:layout_margin="@dimen/margin_portfolio_knowledgetext"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>

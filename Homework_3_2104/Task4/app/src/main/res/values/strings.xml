@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">BMI kalkulator</string>
+    <string name="bmicalculator_buttontext">Izračunaj</string>
+    <string name="bmicalculator_emptyfields">Potrebno je popuniti oba polja</string>
+    <string name="bmicalculator_wronginputheight">Potrebno je upisati realnu visinu</string>
+    <string name="bmicalculator_wronginputweight">Potrebno je upisati realnu tezinu</string>
+    <string name="bmicalculator_resultpothranjen">Pothranjen</string>
+    <string name="bmicalculator_resultzdrav">Zdrav</string>
+    <string name="bmicalculator_resultdebeo">Debeo</string>
+    <string name="bmicalculator_resultpretio">Pretio</string>
+    <string name="bmicalculator_heighthint">Unesi visinu (m)</string>
+    <string name="bmicalculator_weighthint">Unesi težinu</string>
+    <string name="bmicalculator_zdravdesc">Čestitamo, vaša težina je normalna. Težina vam je idealna. Zadržite tu težinu.</string>
+    <string name="bmicalculator_pothranjendesc">Vi imate premalu tjelesnu težinu! BMI je ispod optimalne vrijednosti. Trebate nužno paziti na uravnoteženu i dovoljnu prehranu, jer u protivnom se mogu pojaviti poteškoće zbog manjka tjelesne težine, te se povećava rizik od oboljenja.</string>
+    <string name="bmicalculator_debeodesc">Vjerojatno ste lagano do srednje preteški. Ukoliko se pri tome dobro osjećate i nemate zdravstvenih problema, ova tjelesna težina ne bi smjela biti problematična. No, redovito biste trebali posjećivati liječnika.</string>
+    <string name="bmicalculator_pretiodesc">Ukoliko niste body builder ili vrhunski sportaš u punom treningu, ne biste smjeli biti zadovoljni sa svojim tijelom. Zbog zdravstvenih razloga trebali biste smršaviti. Vjerojatno spadate u rizičnu grupu za dijabetes i oboljenja srca i krvožilnog sustava.</string>
+</resources>
