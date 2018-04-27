@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/textview_newtask_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textsize_tasktitle"
+        android:text="@string/newtask_tasktitle"/>
+    <EditText
+        android:id="@+id/edittext_newtask_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview_newtask_title"
+        style="@style/NewTaskEditTextStyle"
+        android:gravity="center"
+        android:inputType="text"
+        android:hint="@string/newtask_titleresult"/>
+    <TextView
+        android:id="@+id/textview_newtask_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_newtask_title"
+        android:textSize="@dimen/textsize_tasktitle"
+        android:text="@string/newtask_tasksummary"/>
+    <EditText
+        android:id="@+id/edittext_newtask_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview_newtask_summary"
+        style="@style/NewTaskEditTextStyle"
+        android:gravity="center"
+        android:inputType="text"
+        android:hint="@string/newtask_summaryresult"/>
+    <TextView
+        android:id="@+id/textview_newtask_importance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_newtask_summary"
+        android:textSize="@dimen/textsize_tasktitle"
+        android:text="@string/newtask_taskimportance"/>
+    <EditText
+        android:id="@+id/edittext_newtask_importance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview_newtask_importance"
+        style="@style/NewTaskEditTextStyle"
+        android:gravity="center"
+        android:inputType="number"
+        android:hint="@string/newtask_importanceresult"/>
+    <Button
+        android:id="@+id/button_newtask_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_newtask_importance"
+        android:layout_centerHorizontal="true"
+        android:text="@string/newtask_savetask"
+        android:textAllCaps="false" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margintop_scrollview"
+        android:layout_below="@id/button_newtask_save">
+        <TextView
+            android:id="@+id/textview_newtask_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No tasks to show"/>
+    </ScrollView>
+</RelativeLayout>

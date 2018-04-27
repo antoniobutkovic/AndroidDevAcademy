@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="textsize_tasktitle">50px</dimen>
+    <dimen name="margintop_scrollview">30dp</dimen>
+</resources>
