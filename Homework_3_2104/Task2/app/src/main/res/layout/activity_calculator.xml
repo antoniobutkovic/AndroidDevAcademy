@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ada.osc.task2.CalculatorActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext_calculator_input1"
+        style="@style/CalculatorEditTextStyle"
+        android:hint="@string/calculator_inputonehint" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext_calculator_input2"
+        android:layout_below="@id/edittext_calculator_input1"
+        style="@style/CalculatorEditTextStyle"
+        android:hint="@string/calculator_inputtwohint" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttons_linearlayout"
+        android:layout_below="@id/edittext_calculator_input2"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_calculator_addition"
+            style="@style/CalculatorButtonStyle"
+            android:text="@string/calculator_additionbutton"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_calculator_subtraction"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginLeft="@dimen/marginleft_calculatorbutton"
+            android:text="@string/calculator_subtractionbutton"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_calculator_multiplication"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginLeft="@dimen/marginleft_calculatorbutton"
+            android:text="@string/calculator_multiplicationbutton"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_calculator_division"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginLeft="@dimen/marginleft_calculatorbutton"
+            android:text="@string/calculator_divisionbutton"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_calculator_result"
+        android:layout_below="@id/buttons_linearlayout"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="@dimen/margintop_resulttextview"/>
+
+</RelativeLayout>

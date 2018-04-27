@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Task2</string>
+    <string name="calculator_zeroexception">Can not divide by zero</string>
+    <string name="calculator_divisionbutton">/</string>
+    <string name="calculator_multiplicationbutton">x</string>
+    <string name="calculator_subtractionbutton">-</string>
+    <string name="calculator_additionbutton">+</string>
+    <string name="calculator_inputonehint">Enter first number</string>
+    <string name="calculator_inputtwohint">Enter second number</string>
+    <string name="calculator_emptyfields">Please populate empty fields</string>
+</resources>

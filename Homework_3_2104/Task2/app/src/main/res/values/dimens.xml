@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="margin_inputedittext">10dp</dimen>
+    <dimen name="margintop_resulttextview">20dp</dimen>
+    <dimen name="marginleft_calculatorbutton">2dp</dimen>
+</resources>
