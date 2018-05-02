@@ -2,4 +2,5 @@
     <string name="app_name">Taskie</string>
     <string name="newTask_title_hint">Enter title</string>
     <string name="newTask_description_hint">Enter description</string>
+    <string name="newTask_empty_field_text">Please populate all fields</string>
 </resources>

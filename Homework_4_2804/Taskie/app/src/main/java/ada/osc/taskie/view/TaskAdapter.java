@@ -48,6 +48,7 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 		Task current = mTasks.get(position);
 		holder.mTitle.setText(current.getTitle());
 		holder.mDescription.setText(current.getDescription());
+		holder.mDate.setText(current.getDate());
 
 		int color = R.color.taskPriority_Unknown;
 		switch (current.getPriority()){
@@ -68,6 +69,7 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
 		@BindView(R.id.textview_task_title) TextView mTitle;
 		@BindView(R.id.textview_task_description) TextView mDescription;
+		@BindView(R.id.textview_task_date) TextView mDate;
 		@BindView(R.id.imageview_task_priority) ImageView mPriority;
 
 		public TaskViewHolder(View itemView, TaskClickListener listener) {

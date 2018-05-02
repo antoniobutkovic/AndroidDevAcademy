@@ -21,16 +21,22 @@ public class TaskGenerator {
 			"Try it.", "Don't do it.", "Ignore it.",
 	};
 
+	private static String[] dates = {
+			"2, lipanj 2018", "5, srpanj 2018", "8, svibanj 2018", "24, lipanj 2018", "20, kolovoz, 2018",
+			"16, lipanj 2018", "2, prosinac 2018", "11, studeni 2018",
+	};
+
 	public static List<Task> generate(int taskCount) {
 		List<Task> tasks = new ArrayList<Task>();
 		for (int i=0; i<taskCount; i++){
 			String title = titles[generator.nextInt(titles.length)];
 			String description = descriptions[generator.nextInt(descriptions.length)];
+			String date = dates[generator.nextInt(dates.length)];
 
 			int prioritySelector = generator.nextInt(TaskPriority.values().length);
 			TaskPriority priority = TaskPriority.values()[prioritySelector];
 
-			tasks.add(new Task(title, description, priority));
+			tasks.add(new Task(title, description, priority, date));
 		}
 		return tasks;
 	}
