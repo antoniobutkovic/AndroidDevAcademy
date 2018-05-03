@@ -24,7 +24,9 @@ public class TasksActivity extends AppCompatActivity {
 
 	private static final String TAG = TasksActivity.class.getSimpleName();
 	private static final int REQUEST_NEW_TASK = 10;
+	private static final int REQUEST_EDIT_TASK = 20;
 	public static final String EXTRA_TASK = "task";
+	public static final String EXTRA_TASK_ID = "extraTaskId";
 
 	TaskRepository mRepository = TaskRepository.getInstance();
 	TaskAdapter mTaskAdapter;
@@ -35,7 +37,7 @@ public class TasksActivity extends AppCompatActivity {
 	TaskClickListener mListener = new TaskClickListener() {
 		@Override
 		public void onClick(Task task) {
-			toastTask(task);
+			editTask(task);
 		}
 
 		@Override
@@ -86,12 +88,11 @@ public class TasksActivity extends AppCompatActivity {
 		}
 	}
 
-	private void toastTask(Task task) {
-		Toast.makeText(
-				this,
-				task.getTitle() + "\n" + task.getDescription(),
-				Toast.LENGTH_SHORT
-		).show();
+	private void editTask(Task task) {
+		Intent editTask = new Intent(this, NewTaskActivity.class);
+		editTask.putExtra(NewTaskActivity.EDIT_TASK_ID, task.getId());
+		Log.e("TAG", String.valueOf(task.getId()) + " poslan id");
+		startActivityForResult(editTask, REQUEST_EDIT_TASK);
 	}
 
 	@OnClick(R.id.fab_tasks_addNew)
@@ -103,11 +104,18 @@ public class TasksActivity extends AppCompatActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
 		if(requestCode == REQUEST_NEW_TASK && resultCode == RESULT_OK) {
 			if (data != null && data.hasExtra(EXTRA_TASK)) {
 				Task task = (Task) data.getSerializableExtra(EXTRA_TASK);
 				mRepository.saveTask(task);
+				updateTasksDisplay();
+			}
+		}else if (requestCode == REQUEST_EDIT_TASK && resultCode == RESULT_OK){
+			if (data != null && data.hasExtra(EXTRA_TASK)) {
+				Task task = (Task) data.getSerializableExtra(EXTRA_TASK);
+				int taskId = data.getIntExtra(EXTRA_TASK_ID, 0);
+				Log.e("TAG", String.valueOf(taskId) + " primljen id");
+				mRepository.editTask(task, taskId);
 				updateTasksDisplay();
 			}
 		}

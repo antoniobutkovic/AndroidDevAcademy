@@ -1,5 +1,7 @@
 package ada.osc.taskie.persistance;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,5 +29,9 @@ public class FakeDatabase {
 
 	public void delete(Task task) {
 		mTasks.remove(task);
+	}
+
+	public void edit(Task task, int taskId) {
+		mTasks.set(taskId, task);
 	}
 }

@@ -1,5 +1,7 @@
 package ada.osc.taskie.model;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,7 +16,10 @@ public class Task implements Serializable{
 	private TaskPriority mPriority;
 	private String date;
 
+	public Task(){}
+
     public Task(String title, String description, TaskPriority priority, String date) {
+		Log.e("TAG", String.valueOf(sID) + " inkrementiran");
 		mId = sID++;
 		mTitle = title;
 		mDescription = description;

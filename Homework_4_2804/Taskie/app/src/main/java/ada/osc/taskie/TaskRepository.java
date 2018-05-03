@@ -36,4 +36,8 @@ public class TaskRepository {
 	public void removeTask(Task task) {
 		mDatabase.delete(task);
 	}
+
+	public void editTask(Task task, int taskId) {
+		mDatabase.edit(task, taskId);
+	}
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ada.osc.taskie.R;
+import ada.osc.taskie.TaskRepository;
 import ada.osc.taskie.model.Task;
 import ada.osc.taskie.model.TaskPriority;
 import butterknife.BindView;
@@ -23,6 +25,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NewTaskActivity extends AppCompatActivity {
+
+	public static final String EDIT_TASK_ID = "taskId";
+	private boolean isFromEdit = false;
+	private Task receivedTask;
+	TaskRepository mRepository = TaskRepository.getInstance();
 
 	@BindView(R.id.edittext_newtask_title)	EditText mTitleEntry;
 	@BindView(R.id.edittext_newtask_description) EditText mDescriptionEntry;
@@ -34,22 +41,56 @@ public class NewTaskActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_task);
 		ButterKnife.bind(this);
+
+		Intent intent = getIntent();
+		if (intent.hasExtra(EDIT_TASK_ID)){
+			isFromEdit = true;
+			int taskId = intent.getIntExtra(EDIT_TASK_ID, 0);
+			for (Task task : mRepository.getTasks()){
+				if (task.getId() == taskId){
+					receivedTask = task;
+				}
+			}
+		}
+
 		setUpSpinnerSource();
 		setStartingDate();
 	}
 
 	private void setStartingDate() {
-		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("dd, MMMM yyyy");
-		mDateEntry.setText(mSimpleDateFormat.format(Calendar.getInstance().getTime()));
+		if (isFromEdit){
+			mDateEntry.setText(receivedTask.getDate());
+			mTitleEntry.setText(receivedTask.getTitle());
+			mDescriptionEntry.setText(receivedTask.getDescription());
+		}else {
+			SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("dd, MMMM yyyy");
+			mDateEntry.setText(mSimpleDateFormat.format(Calendar.getInstance().getTime()));
+		}
 	}
 
 	private void setUpSpinnerSource() {
+
 		mPriorityEntry.setAdapter(
 				new ArrayAdapter<TaskPriority>(
 						this, android.R.layout.simple_list_item_1, TaskPriority.values()
 				)
 		);
-		mPriorityEntry.setSelection(0);
+
+		if (isFromEdit){
+			switch (receivedTask.getPriority()){
+				case LOW:
+					mPriorityEntry.setSelection(0);
+					break;
+				case MEDIUM:
+					mPriorityEntry.setSelection(1);
+					break;
+				case HIGH:
+					mPriorityEntry.setSelection(2);
+					break;
+			}
+		}else {
+			mPriorityEntry.setSelection(0);
+		}
 	}
 
 	@OnClick(R.id.imagebutton_newtask_savetask)
@@ -62,9 +103,20 @@ public class NewTaskActivity extends AppCompatActivity {
 		if (TextUtils.isEmpty(title) || TextUtils.isEmpty(description)){
 			Toast.makeText(this, getString(R.string.newTask_empty_field_text), Toast.LENGTH_SHORT).show();
 		}else {
-			Task newTask = new Task(title, description, priority, date);
 			Intent saveTaskIntent = new Intent(this, TasksActivity.class);
-			saveTaskIntent.putExtra(TasksActivity.EXTRA_TASK, newTask);
+			if (isFromEdit){
+				Task newTask = new Task();
+				newTask.setTitle(title);
+				newTask.setDescription(description);
+				newTask.setDate(date);
+				newTask.setPriority(priority);
+				saveTaskIntent.putExtra(TasksActivity.EXTRA_TASK, newTask);
+				saveTaskIntent.putExtra(TasksActivity.EXTRA_TASK_ID, receivedTask.getId());
+				setResult(RESULT_OK, saveTaskIntent);
+			}else {
+				Task newTask = new Task(title, description, priority, date);
+				saveTaskIntent.putExtra(TasksActivity.EXTRA_TASK, newTask);
+			}
 			setResult(RESULT_OK, saveTaskIntent);
 			finish();
 		}
