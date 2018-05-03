@@ -45,7 +45,13 @@ public class TasksActivity extends AppCompatActivity {
 			mRepository.removeTask(task);
 			updateTasksDisplay();
 		}
+
+		@Override
+		public void onToggleClick(Task task) {
+			changeTaskState(task);
+		}
 	};
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +97,15 @@ public class TasksActivity extends AppCompatActivity {
 	private void editTask(Task task) {
 		Intent editTask = new Intent(this, NewTaskActivity.class);
 		editTask.putExtra(NewTaskActivity.EDIT_TASK_ID, task.getId());
-		Log.e("TAG", String.valueOf(task.getId()) + " poslan id");
 		startActivityForResult(editTask, REQUEST_EDIT_TASK);
+	}
+
+	private void changeTaskState(Task task) {
+		if (task.isCompleted()){
+			task.setCompleted(false);
+		}else {
+			task.setCompleted(true);
+		}
 	}
 
 	@OnClick(R.id.fab_tasks_addNew)
@@ -114,7 +127,6 @@ public class TasksActivity extends AppCompatActivity {
 			if (data != null && data.hasExtra(EXTRA_TASK)) {
 				Task task = (Task) data.getSerializableExtra(EXTRA_TASK);
 				int taskId = data.getIntExtra(EXTRA_TASK_ID, 0);
-				Log.e("TAG", String.valueOf(taskId) + " primljen id");
 				mRepository.editTask(task, taskId);
 				updateTasksDisplay();
 			}

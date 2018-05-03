@@ -110,6 +110,8 @@ public class NewTaskActivity extends AppCompatActivity {
 				newTask.setDescription(description);
 				newTask.setDate(date);
 				newTask.setPriority(priority);
+				newTask.setId(receivedTask.getId());
+				newTask.setCompleted(receivedTask.isCompleted());
 				saveTaskIntent.putExtra(TasksActivity.EXTRA_TASK, newTask);
 				saveTaskIntent.putExtra(TasksActivity.EXTRA_TASK_ID, receivedTask.getId());
 				setResult(RESULT_OK, saveTaskIntent);

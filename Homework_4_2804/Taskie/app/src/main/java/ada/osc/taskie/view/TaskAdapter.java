@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,12 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 		holder.mDescription.setText(current.getDescription());
 		holder.mDate.setText(current.getDate());
 
+		if (mTasks.get(position).isCompleted()){
+			holder.mState.setChecked(true);
+		}else {
+			holder.mState.setChecked(false);
+		}
+
 		int color = R.color.taskPriority_Unknown;
 		switch (current.getPriority()){
 			case LOW: color = R.color.taskpriority_low; break;
@@ -71,6 +78,7 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 		@BindView(R.id.textview_task_description) TextView mDescription;
 		@BindView(R.id.textview_task_date) TextView mDate;
 		@BindView(R.id.imageview_task_priority) ImageView mPriority;
+		@BindView(R.id.togglebutton_task_state) ToggleButton mState;
 
 		public TaskViewHolder(View itemView, TaskClickListener listener) {
 			super(itemView);
@@ -87,5 +95,11 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 			mListener.onLongClick(mTasks.get(getAdapterPosition()));
 			return true;
 		}
+
+		@OnClick(R.id.togglebutton_task_state)
+		public void onToggleClick(){
+			mListener.onToggleClick(mTasks.get(getAdapterPosition()));
+		}
+
 	}
 }

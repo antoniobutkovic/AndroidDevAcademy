@@ -18,14 +18,17 @@ public class Task implements Serializable{
 
 	public Task(){}
 
-    public Task(String title, String description, TaskPriority priority, String date) {
-		Log.e("TAG", String.valueOf(sID) + " inkrementiran");
+	public Task(String title, String description, TaskPriority priority, String date) {
 		mId = sID++;
 		mTitle = title;
 		mDescription = description;
 		mCompleted = false;
 		mPriority = priority;
 		this.date = date;
+	}
+
+	public void setId(int mId) {
+		this.mId = mId;
 	}
 
 	public int getId() {
