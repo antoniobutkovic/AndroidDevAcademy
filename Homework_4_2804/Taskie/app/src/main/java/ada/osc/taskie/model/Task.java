@@ -74,4 +74,18 @@ public class Task implements Serializable{
 	public void setPriority(TaskPriority priority) {
 		mPriority = priority;
 	}
+
+	public void changePriority(){
+		switch (getPriority()){
+			case LOW:
+				setPriority(TaskPriority.MEDIUM);
+				break;
+			case MEDIUM:
+				setPriority(TaskPriority.HIGH);
+				break;
+			case HIGH:
+				setPriority(TaskPriority.LOW);
+				break;
+		}
+	}
 }

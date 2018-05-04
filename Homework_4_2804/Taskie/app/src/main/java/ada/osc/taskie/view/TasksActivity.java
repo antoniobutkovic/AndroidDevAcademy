@@ -18,6 +18,7 @@ import java.util.List;
 import ada.osc.taskie.R;
 import ada.osc.taskie.TaskRepository;
 import ada.osc.taskie.model.Task;
+import ada.osc.taskie.model.TaskPriority;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,9 +45,8 @@ public class TasksActivity extends AppCompatActivity {
 
 		@Override
 		public void onLongClick(Task task) {
-//			mRepository.removeTask(task);
-//			updateTasksDisplay();
-			Toast.makeText(TasksActivity.this, task.getTitle() + " " + String.valueOf(task.isCompleted()), Toast.LENGTH_SHORT).show();
+			mRepository.removeTask(task);
+			updateTasksDisplay();
 		}
 
 		@Override
@@ -56,10 +56,10 @@ public class TasksActivity extends AppCompatActivity {
 
 		@Override
 		public void onPriorityImageClick(Task task) {
-//			showPriorityDialog();
+			task.changePriority();
+			updateTasksDisplay();
 		}
 	};
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
