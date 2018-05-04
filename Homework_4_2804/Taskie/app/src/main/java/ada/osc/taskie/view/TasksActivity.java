@@ -9,6 +9,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.List;
@@ -42,13 +44,19 @@ public class TasksActivity extends AppCompatActivity {
 
 		@Override
 		public void onLongClick(Task task) {
-			mRepository.removeTask(task);
-			updateTasksDisplay();
+//			mRepository.removeTask(task);
+//			updateTasksDisplay();
+			Toast.makeText(TasksActivity.this, task.getTitle() + " " + String.valueOf(task.isCompleted()), Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
 		public void onToggleClick(Task task) {
 			changeTaskState(task);
+		}
+
+		@Override
+		public void onPriorityImageClick(Task task) {
+//			showPriorityDialog();
 		}
 	};
 
@@ -131,5 +139,27 @@ public class TasksActivity extends AppCompatActivity {
 				updateTasksDisplay();
 			}
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()){
+			case R.id.item_menu_alltasks:
+				updateTasksDisplay();
+				break;
+			case R.id.item_menu_finishedtasks:
+				mTaskAdapter.showFinishedTasks(mRepository.getTasks());
+				break;
+			case R.id.item_menu_sort:
+				mTaskAdapter.sortTasksByPriority(mRepository.getTasks());
+				break;
+		}
+		return true;
 	}
 }

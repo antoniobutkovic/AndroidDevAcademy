@@ -14,6 +14,7 @@ import java.util.List;
 
 import ada.osc.taskie.R;
 import ada.osc.taskie.model.Task;
+import ada.osc.taskie.model.TaskPriority;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,6 +33,36 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 	public void updateTasks(List<Task> tasks){
 		mTasks.clear();
 		mTasks.addAll(tasks);
+		notifyDataSetChanged();
+	}
+
+	public void showFinishedTasks(List<Task> tasks){
+		mTasks.clear();
+		for (Task t : tasks){
+			if (t.isCompleted()){
+				mTasks.add(t);
+			}
+		}
+		notifyDataSetChanged();
+	}
+
+	public void sortTasksByPriority(List<Task> tasks){
+		mTasks.clear();
+		for (Task t : tasks){
+			if (t.getPriority() == TaskPriority.LOW){
+				mTasks.add(t);
+			}
+		}
+		for (Task t : tasks){
+			if (t.getPriority() == TaskPriority.MEDIUM){
+				mTasks.add(t);
+			}
+		}
+		for (Task t : tasks){
+			if (t.getPriority() == TaskPriority.HIGH){
+				mTasks.add(t);
+			}
+		}
 		notifyDataSetChanged();
 	}
 
@@ -99,6 +130,11 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 		@OnClick(R.id.togglebutton_task_state)
 		public void onToggleClick(){
 			mListener.onToggleClick(mTasks.get(getAdapterPosition()));
+		}
+
+		@OnClick(R.id.imageview_task_priority)
+		public void onPriorityImageClick(){
+			mListener.onPriorityImageClick(mTasks.get(getAdapterPosition()));
 		}
 
 	}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Show all tasks"
+        android:id="@+id/item_menu_alltasks">
+    </item>
+
+    <item android:title="Show finished tasks"
+        android:id="@+id/item_menu_finishedtasks">
+    </item>
+
+    <item android:title="Sort by priority"
+        android:id="@+id/item_menu_sort">
+    </item>
+
+</menu>

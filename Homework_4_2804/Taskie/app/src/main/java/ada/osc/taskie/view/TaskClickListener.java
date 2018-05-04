@@ -6,4 +6,5 @@ public interface TaskClickListener {
 	void onClick(Task task);
 	void onLongClick(Task task);
 	void onToggleClick(Task task);
+	void onPriorityImageClick(Task task);
 }
