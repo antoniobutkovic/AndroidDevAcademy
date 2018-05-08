@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Taskie</string>
+    <string name="newTask_title_hint">Enter title</string>
+    <string name="newTask_description_hint">Enter description</string>
+    <string name="tasks_delete_message">Are you sure you want to delete selected task?</string>
+    <string name="tasks_warning_message">Warning</string>
+    <string name="tasks_negativebtn_msg">DELETE</string>
+    <string name="tasks_positivebtn_msg">CANCEL</string>
+    <string name="newtask_sharedPrefs_name">priorityPrefs</string>
+    <string name="newtask_priorityPrefs_value">priority</string>
+</resources>
