@@ -1,0 +1,26 @@
+#
+# generated on 2018/05/09 06:51:47
+#
+# --table-start--
+dataClass=ada.osc.taskie.model.Task
+tableName=task
+# --table-fields-start--
+# --field-start--
+fieldName=mId
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=mTitle
+# --field-end--
+# --field-start--
+fieldName=mDescription
+# --field-end--
+# --field-start--
+fieldName=mCompleted
+# --field-end--
+# --field-start--
+fieldName=mPriority
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
