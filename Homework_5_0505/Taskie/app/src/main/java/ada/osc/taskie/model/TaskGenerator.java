@@ -30,7 +30,7 @@ public class TaskGenerator {
 			int prioritySelector = generator.nextInt(TaskPriority.values().length);
 			TaskPriority priority = TaskPriority.values()[prioritySelector];
 
-			tasks.add(new Task(title, description, priority));
+//			tasks.add(new Task(title, description, priority));
 		}
 		return tasks;
 	}

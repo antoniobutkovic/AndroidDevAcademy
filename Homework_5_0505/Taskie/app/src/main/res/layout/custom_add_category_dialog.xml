@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create new category"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorAccent"/>
+    <EditText
+        android:id="@+id/textview_newtask_categoryname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/newtask_category_name_hint"
+        android:layout_below="@+id/titleText" />
+    <EditText
+        android:id="@+id/textview_newtask_categorydesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/newtask_category_desc_hint"
+        android:layout_below="@id/textview_newtask_categoryname"/>
+    <View
+        android:id="@+id/helperView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textview_newtask_categorydesc"/>
+    <Button
+        android:id="@+id/button_newtask_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/newtask_button_cancelname"
+        android:layout_below="@id/textview_newtask_categorydesc"
+        android:layout_toLeftOf="@id/helperView"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/newtask_button_savename"
+        android:id="@+id/button_newtask_savecategory"
+        android:layout_below="@id/textview_newtask_categorydesc"
+        android:layout_toRightOf="@id/helperView"/>
+
+
+
+</RelativeLayout>

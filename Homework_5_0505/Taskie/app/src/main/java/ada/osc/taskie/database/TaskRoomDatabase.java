@@ -6,14 +6,16 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
+import ada.osc.taskie.model.Category;
 import ada.osc.taskie.model.Task;
 import ada.osc.taskie.util.TypeConverterUtil;
 
-@Database(entities = {Task.class}, version = 1)
+@Database(entities = {Task.class, Category.class}, version = 4)
 @TypeConverters({TypeConverterUtil.class})
 public abstract class TaskRoomDatabase extends RoomDatabase {
 
     public abstract TaskDao taskDao();
+    public abstract CategoryDao categoryDao();
 
     private static TaskRoomDatabase INSTANCE;
 

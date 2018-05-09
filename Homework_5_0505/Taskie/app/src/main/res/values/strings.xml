@@ -8,4 +8,8 @@
     <string name="tasks_positivebtn_msg">CANCEL</string>
     <string name="newtask_sharedPrefs_name">priorityPrefs</string>
     <string name="newtask_priorityPrefs_value">priority</string>
+    <string name="newtask_category_name_hint">Category name</string>
+    <string name="newtask_category_desc_hint">Category description</string>
+    <string name="newtask_button_cancelname">Cancel</string>
+    <string name="newtask_button_savename">Save</string>
 </resources>

@@ -1,6 +1,7 @@
 package ada.osc.taskie.model;
 
 import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
@@ -11,8 +12,6 @@ import java.util.UUID;
 @Entity(tableName = "task_table")
 public class Task implements Serializable {
 
-    private static int sID = 0;
-
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
@@ -21,13 +20,24 @@ public class Task implements Serializable {
     private String mDescription;
     private boolean mCompleted;
     private TaskPriority mPriority;
+    @Embedded(prefix = "cat") private Category category;
 
-    public Task(String title, String description, TaskPriority priority) {
+
+    public Task(String title, String description, TaskPriority priority, Category category) {
         mId = UUID.randomUUID().toString();
         mTitle = title;
         mDescription = description;
         mCompleted = false;
         mPriority = priority;
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public void setId(String id) {

@@ -106,7 +106,7 @@ public class TasksActivity extends AppCompatActivity {
     private void toastTask(Task task) {
         Toast.makeText(
                 this,
-                task.getTitle() + "\n" + task.getDescription(),
+                task.getTitle() + "\n" + task.getDescription() + "\n" + "Category: " + task.getCategory().getName(),
                 Toast.LENGTH_SHORT
         ).show();
     }
