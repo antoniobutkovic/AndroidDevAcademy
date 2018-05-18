@@ -2,10 +2,12 @@ package ada.osc.taskie.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -49,6 +51,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 		holder.mTitle.setText(current.getTitle());
 		holder.mDescription.setText(current.getDescription());
 
+		if (current.isFavorite()){
+			holder.mFavoriteSwitch.setChecked(true);
+		}else {
+			holder.mFavoriteSwitch.setChecked(false);
+		}
+
 		int color = R.color.taskPriority_Unknown;
 		switch (current.getmPriority()){
 			case LOW: color = R.color.taskpriority_low; break;
@@ -69,6 +77,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 		@BindView(R.id.textview_task_title) TextView mTitle;
 		@BindView(R.id.textview_task_description) TextView mDescription;
 		@BindView(R.id.imageview_task_priority) ImageView mPriority;
+		@BindView(R.id.switch_task_favorite) Switch mFavoriteSwitch;
 
 		public TaskViewHolder(View itemView, TaskClickListener listener) {
 			super(itemView);
@@ -84,6 +93,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 		public boolean onTaskLongClick(){
 			mListener.onLongClick(mTasks.get(getAdapterPosition()));
 			return true;
+		}
+
+		@OnClick(R.id.switch_task_favorite)
+		public void onSwitchClick(){
+			mListener.onSwitchClick(mTasks.get(getAdapterPosition()), mFavoriteSwitch.isChecked());
 		}
 	}
 }

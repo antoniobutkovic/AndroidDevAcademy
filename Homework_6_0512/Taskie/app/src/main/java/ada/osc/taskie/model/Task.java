@@ -19,7 +19,10 @@ public class Task implements Serializable{
 	private String mDescription;
 	@Expose
 	@SerializedName("complete")
-	private boolean mCompleted;
+	private boolean mCompleted; //used this variable to set flag if task is uploaded to server or not.
+	@Expose
+	@SerializedName("favorite")
+	private boolean mFavorite;
 	@Expose
 	@SerializedName("taskPriority")
 	private int mPriority;
@@ -29,6 +32,7 @@ public class Task implements Serializable{
 		mTitle = title;
 		mDescription = description;
 		mCompleted = false;
+		mFavorite = false;
 
 		switch (priority){
 			case LOW:
@@ -44,11 +48,11 @@ public class Task implements Serializable{
 	}
 
 
-	public String getmId() {
+	public String getId() {
 		return mId;
 	}
 
-	public void setmId(String mId) {
+	public void setId(String mId) {
 		this.mId = mId;
 	}
 
@@ -89,7 +93,15 @@ public class Task implements Serializable{
 		return TaskPriority.LOW;
 	}
 
-	public void setmPriority(int mPriority) {
+	public void setPriority(int mPriority) {
 		this.mPriority = mPriority;
+	}
+
+	public boolean isFavorite() {
+		return mFavorite;
+	}
+
+	public void setFavorite(boolean mFavorite) {
+		this.mFavorite = mFavorite;
 	}
 }

@@ -1,5 +1,9 @@
 package ada.osc.taskie.view.fragments;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ada.osc.taskie.R;
@@ -34,7 +39,11 @@ public class AllTasksFragment extends Fragment {
     @BindView(R.id.tasks)
     RecyclerView tasks;
 
-    private TaskAdapter taskAdapter;
+    private static TaskAdapter taskAdapter;
+    private static Context context;
+    private boolean isLoading;
+    private static int pageNumber = 1;
+    private static List<Task> allTasks;
 
     TaskClickListener mListener = new TaskClickListener(){
 
@@ -45,15 +54,21 @@ public class AllTasksFragment extends Fragment {
 
         @Override
         public void onLongClick(Task task) {
+            showDeleteAlertDialog(task);
+        }
 
+        @Override
+        public void onSwitchClick(Task task, boolean isChecked) {
+            if (isChecked){
+                sendTaskToFavorites(task);
+            }
         }
     };
 
     private void toastTask(Task task) {
-        Log.e("TAG", "clicked");
         Toast.makeText(
                 getActivity(),
-                task.getTitle() + "\n" + task.getDescription() + " " + task.getmPriority().toString() + " " + String.valueOf(task.isCompleted()),
+                task.getId() + " " + task.getTitle() + "\n" + task.getDescription() + " " + task.getmPriority().toString() + " " + String.valueOf(task.isFavorite()),
                 Toast.LENGTH_LONG
         ).show();
     }
@@ -69,15 +84,33 @@ public class AllTasksFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        allTasks = new ArrayList<>();
+        context = getActivity();
+
         tasks.setLayoutManager(new LinearLayoutManager(getActivity()));
         tasks.setItemAnimator(new DefaultItemAnimator());
-
-
         taskAdapter = new TaskAdapter(mListener);
-
         tasks.setAdapter(taskAdapter);
 
-        getTasksFromServer();
+        tasks.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                isLoading = false;
+                if (dy > 0){
+                    int visibleItemCount = recyclerView.getLayoutManager().getItemCount();
+                    int totalItemCount = recyclerView.getLayoutManager().getChildCount();
+                    int pastVisibleItems = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+
+                    if ((visibleItemCount + pastVisibleItems) >= totalItemCount){
+                        if (!isLoading){
+                            isLoading = true;
+                            pageNumber ++;
+                            getTasksFromServer();
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -86,13 +119,13 @@ public class AllTasksFragment extends Fragment {
         getTasksFromServer();
     }
 
-    private void getTasksFromServer() {
+    public void getTasksFromServer() {
         Retrofit retrofit = RetrofitUtil.createRetrofit();
         ApiService apiService = retrofit.create(ApiService.class);
 
         Call<TaskList> taskListCall = apiService
-                .getTasks(SharedPrefsUtil.getPreferencesField(getActivity()
-                        , SharedPrefsUtil.TOKEN));
+                .getTasks(SharedPrefsUtil.getPreferencesField(context
+                        , SharedPrefsUtil.TOKEN), pageNumber);
 
         taskListCall.enqueue(new Callback<TaskList>() {
             @Override
@@ -109,10 +142,79 @@ public class AllTasksFragment extends Fragment {
         });
     }
 
+    private void showDeleteAlertDialog(final Task task) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Warning!");
+        builder.setMessage("Are you sure you want to delete " + task.getTitle() + " note?");
+        
+        
+        builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteTask(task);
+                dialog.dismiss();
+            }
+        });
 
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void deleteTask(Task task) {
+        Retrofit retrofit = RetrofitUtil.createRetrofit();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Task> deleteTaskCall = apiService.deleteTask(SharedPrefsUtil.getPreferencesField(context
+                , SharedPrefsUtil.TOKEN), task.getId());
+
+        deleteTaskCall.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful()) {
+                    getTasksFromServer();
+                    new FavoriteTasksFragment().getTasksFromServer();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+            }
+        });
+    }
+
+    private void sendTaskToFavorites(Task task) {
+
+        Retrofit retrofit = RetrofitUtil.createRetrofit();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Task> sendTaskToFavoritesCall = apiService.sendTaskToFavorites(SharedPrefsUtil.getPreferencesField(getActivity()
+                , SharedPrefsUtil.TOKEN), task.getId());
+
+        sendTaskToFavoritesCall.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful()) {
+                    getTasksFromServer();
+                    new FavoriteTasksFragment().getTasksFromServer();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+            }
+        });
+    }
 
     private void updateTasksDisplay(List<Task> taskList) {
-        taskAdapter.updateTasks(taskList);
+        allTasks.addAll(taskList);
+        taskAdapter.updateTasks(allTasks);
     }
 
 }

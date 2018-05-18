@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,8 +32,6 @@ public class TasksActivity extends AppCompatActivity {
 
     private TasksPagerAdapter adapter;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +46,11 @@ public class TasksActivity extends AppCompatActivity {
 
         adapter.setItems(pages);
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @OnClick(R.id.fab_tasks_addNew)

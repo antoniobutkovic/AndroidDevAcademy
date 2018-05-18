@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -22,6 +23,21 @@ public interface ApiService {
     Call<Task> postNewTask(@Header("authorization") String header, @Body Task task);
 
     @GET("api/note/")
+    Call<TaskList> getTasks(@Header("authorization") String header, @Query("page") int pageNumber);
+
+    @GET("api/note/")
     Call<TaskList> getTasks(@Header("authorization") String header);
+
+    @POST("api/note/delete/")
+    Call<Task> deleteTask(@Header("authorization") String header, @Query("id") String id);
+
+    @POST("api/note/favorite/")
+    Call<Task> sendTaskToFavorites(@Header("authorization") String header, @Query("id") String id);
+
+    @GET("api/note/favorite/")
+    Call<TaskList>  getFavoriteTasks(@Header("authorization") String header);
+
+    @POST("api/note/edit/")
+    Call<Task> editTask(@Header("authorization") String header, @Body Task task);
 
 }
