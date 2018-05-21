@@ -35,9 +35,6 @@ public interface ApiService {
     Call<Task> sendTaskToFavorites(@Header("authorization") String header, @Query("id") String id);
 
     @GET("api/note/favorite/")
-    Call<TaskList>  getFavoriteTasks(@Header("authorization") String header);
-
-    @POST("api/note/edit/")
-    Call<Task> editTask(@Header("authorization") String header, @Body Task task);
+    Call<TaskList> getFavoriteTasks(@Header("authorization") String header);
 
 }

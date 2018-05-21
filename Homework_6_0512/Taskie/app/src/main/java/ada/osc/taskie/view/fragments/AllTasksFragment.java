@@ -42,7 +42,8 @@ public class AllTasksFragment extends Fragment {
     private static TaskAdapter taskAdapter;
     private static Context context;
     private boolean isLoading;
-    private static int pageNumber = 1;
+    private boolean isScrolled;
+    private int pageNumber = 1;
     private static List<Task> allTasks;
 
     TaskClickListener mListener = new TaskClickListener(){
@@ -84,6 +85,9 @@ public class AllTasksFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        isScrolled = false;
+        isLoading = false;
+
         allTasks = new ArrayList<>();
         context = getActivity();
 
@@ -95,7 +99,6 @@ public class AllTasksFragment extends Fragment {
         tasks.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                isLoading = false;
                 if (dy > 0){
                     int visibleItemCount = recyclerView.getLayoutManager().getItemCount();
                     int totalItemCount = recyclerView.getLayoutManager().getChildCount();
@@ -105,6 +108,7 @@ public class AllTasksFragment extends Fragment {
                         if (!isLoading){
                             isLoading = true;
                             pageNumber ++;
+                            isScrolled = true;
                             getTasksFromServer();
                         }
                     }
@@ -116,6 +120,7 @@ public class AllTasksFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        pageNumber = 1;
         getTasksFromServer();
     }
 
@@ -126,12 +131,18 @@ public class AllTasksFragment extends Fragment {
         Call<TaskList> taskListCall = apiService
                 .getTasks(SharedPrefsUtil.getPreferencesField(context
                         , SharedPrefsUtil.TOKEN), pageNumber);
-
         taskListCall.enqueue(new Callback<TaskList>() {
             @Override
             public void onResponse(Call<TaskList> call, Response<TaskList> response) {
                 if (response.isSuccessful()) {
-                    updateTasksDisplay(response.body().mTaskList);
+                    if (isScrolled || allTasks.isEmpty()){
+                        allTasks.addAll(response.body().mTaskList);
+                        updateTasksDisplay(allTasks);
+                        isScrolled = false;
+                        isLoading = false;
+                    }else {
+                        updateTasksDisplay(response.body().mTaskList);
+                    }
                 }
             }
 
@@ -178,6 +189,7 @@ public class AllTasksFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
+                    pageNumber = 1;
                     getTasksFromServer();
                     new FavoriteTasksFragment().getTasksFromServer();
                 }
@@ -201,6 +213,7 @@ public class AllTasksFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
+                    pageNumber = 1;
                     getTasksFromServer();
                     new FavoriteTasksFragment().getTasksFromServer();
                 }
@@ -213,8 +226,7 @@ public class AllTasksFragment extends Fragment {
     }
 
     private void updateTasksDisplay(List<Task> taskList) {
-        allTasks.addAll(taskList);
-        taskAdapter.updateTasks(allTasks);
+        taskAdapter.updateTasks(taskList);
     }
 
 }
