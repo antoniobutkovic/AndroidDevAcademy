@@ -6,15 +6,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ada.osc.taskie.R;
-import ada.osc.taskie.TaskRepository;
-import ada.osc.taskie.model.Task;
 import ada.osc.taskie.view.fragments.AllTasksFragment;
 import ada.osc.taskie.view.fragments.FavoriteTasksFragment;
 import ada.osc.taskie.view.fragments.TasksPagerAdapter;

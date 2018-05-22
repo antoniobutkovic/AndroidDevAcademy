@@ -2,7 +2,6 @@ package ada.osc.taskie.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import java.util.List;
 
 import ada.osc.taskie.R;
 import ada.osc.taskie.model.Task;
+import ada.osc.taskie.util.NetworkUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -59,7 +59,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 		}
 
 		int color = R.color.taskPriority_Unknown;
-		switch (current.getmPriority()){
+		switch (current.getPriority()){
 			case LOW: color = R.color.taskpriority_low; break;
 			case MEDIUM: color = R.color.taskpriority_medium; break;
 			case HIGH: color = R.color.taskpriority_high; break;

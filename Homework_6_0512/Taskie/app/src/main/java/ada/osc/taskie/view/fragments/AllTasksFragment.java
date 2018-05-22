@@ -3,14 +3,12 @@ package ada.osc.taskie.view.fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +22,7 @@ import ada.osc.taskie.model.Task;
 import ada.osc.taskie.model.TaskList;
 import ada.osc.taskie.networking.ApiService;
 import ada.osc.taskie.networking.RetrofitUtil;
+import ada.osc.taskie.util.NetworkUtil;
 import ada.osc.taskie.util.SharedPrefsUtil;
 import ada.osc.taskie.view.TaskAdapter;
 import ada.osc.taskie.view.TaskClickListener;
@@ -55,13 +54,21 @@ public class AllTasksFragment extends Fragment {
 
         @Override
         public void onLongClick(Task task) {
-            showDeleteAlertDialog(task);
+            if (NetworkUtil.hasConnection(getActivity())){
+                showDeleteAlertDialog(task);
+            }else {
+                Toast.makeText(getActivity(), "Please connect to the network", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
         public void onSwitchClick(Task task, boolean isChecked) {
             if (isChecked){
-                sendTaskToFavorites(task);
+                if (NetworkUtil.hasConnection(getActivity())){
+                    sendTaskToFavorites(task);
+                }else {
+                    Toast.makeText(getActivity(), "Please connect to the network", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     };
@@ -69,7 +76,7 @@ public class AllTasksFragment extends Fragment {
     private void toastTask(Task task) {
         Toast.makeText(
                 getActivity(),
-                task.getId() + " " + task.getTitle() + "\n" + task.getDescription() + " " + task.getmPriority().toString() + " " + String.valueOf(task.isFavorite()),
+                task.getId() + " " + task.getTitle() + "\n" + task.getDescription() + " " + task.getPriority().toString() + " " + String.valueOf(task.isFavorite()),
                 Toast.LENGTH_LONG
         ).show();
     }

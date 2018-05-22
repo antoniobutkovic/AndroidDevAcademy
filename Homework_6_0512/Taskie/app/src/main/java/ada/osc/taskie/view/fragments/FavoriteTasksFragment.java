@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import ada.osc.taskie.model.Task;
 import ada.osc.taskie.model.TaskList;
 import ada.osc.taskie.networking.ApiService;
 import ada.osc.taskie.networking.RetrofitUtil;
+import ada.osc.taskie.util.NetworkUtil;
 import ada.osc.taskie.util.SharedPrefsUtil;
 import ada.osc.taskie.view.TaskAdapter;
 import ada.osc.taskie.view.TaskClickListener;
@@ -49,7 +49,11 @@ public class FavoriteTasksFragment extends Fragment {
 
         @Override
         public void onLongClick(Task task) {
-            showDeleteAlertDialog(task);
+            if (NetworkUtil.hasConnection(getActivity())){
+                showDeleteAlertDialog(task);
+            }else {
+                Toast.makeText(getActivity(), "Please connect to the network", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -117,7 +121,7 @@ public class FavoriteTasksFragment extends Fragment {
     private void toastTask(Task task) {
         Toast.makeText(
                 getActivity(),
-                task.getId() + " " + task.getTitle() + "\n" + task.getDescription() + " " + task.getmPriority().toString() + " " + String.valueOf(task.isFavorite()),
+                task.getId() + " " + task.getTitle() + "\n" + task.getDescription() + " " + task.getPriority().toString() + " " + String.valueOf(task.isFavorite()),
                 Toast.LENGTH_LONG
         ).show();
     }

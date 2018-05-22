@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import ada.osc.taskie.R;
 import ada.osc.taskie.model.RegistrationToken;
 import ada.osc.taskie.networking.ApiService;
 import ada.osc.taskie.networking.RetrofitUtil;
+import ada.osc.taskie.util.NetworkUtil;
 import ada.osc.taskie.util.SharedPrefsUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +57,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_register)
     void onRegisterButtonClick() {
-        registerUser();
+        if (NetworkUtil.hasConnection(this)){
+            registerUser();
+        }else {
+            Toast.makeText(this, "Please connect to the network", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void registerUser() {

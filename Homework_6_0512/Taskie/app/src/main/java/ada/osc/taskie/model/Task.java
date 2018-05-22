@@ -1,5 +1,10 @@
 package ada.osc.taskie.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -23,9 +28,14 @@ public class Task implements Serializable{
 	@Expose
 	@SerializedName("favorite")
 	private boolean mFavorite;
+
 	@Expose
 	@SerializedName("taskPriority")
 	private int mPriority;
+
+	public Task(){
+
+	}
 
 	public Task(String title, String description, TaskPriority priority) {
 		mId = UUID.randomUUID().toString();
@@ -80,7 +90,11 @@ public class Task implements Serializable{
 		mCompleted = completed;
 	}
 
-	public TaskPriority getmPriority() {
+	public int getmPriority(){
+		return mPriority;
+	}
+
+	public TaskPriority getPriority() {
 		switch (mPriority){
 			case 1:
 				return TaskPriority.LOW;

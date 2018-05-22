@@ -1,6 +1,5 @@
 package ada.osc.taskie.view;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +70,7 @@ public class ExampleListAdapter extends BaseAdapter {
         holder.mDescription.setText(current.getDescription());
 
         int color = R.color.taskPriority_Unknown;
-        switch (current.getmPriority()){
+        switch (current.getPriority()){
             case LOW: color = R.color.taskpriority_low; break;
             case MEDIUM: color = R.color.taskpriority_medium; break;
             case HIGH: color = R.color.taskpriority_high; break;
