@@ -13,6 +13,8 @@ import ada.osc.taskie.model.Task;
 import ada.osc.taskie.model.TaskPriority;
 import ada.osc.taskie.networking.ApiService;
 import ada.osc.taskie.networking.RetrofitUtil;
+import ada.osc.taskie.persistance.TaskDao;
+import ada.osc.taskie.persistance.TaskRoomDatabase;
 import ada.osc.taskie.util.NetworkUtil;
 import ada.osc.taskie.util.SharedPrefsUtil;
 import butterknife.BindView;
@@ -29,13 +31,22 @@ public class NewTaskActivity extends AppCompatActivity {
 	@BindView(R.id.edittext_newtask_description) EditText mDescriptionEntry;
 	@BindView(R.id.spinner_newtask_priority) Spinner mPriorityEntry;
 
+	private TaskDao mTaskDao;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_task);
 		ButterKnife.bind(this);
+		initDao();
 		setUpSpinnerSource();
 	}
+
+	private void initDao() {
+		TaskRoomDatabase database = TaskRoomDatabase.getDatabase(this);
+		mTaskDao = database.taskDao();
+	}
+
 
 	private void setUpSpinnerSource() {
 		mPriorityEntry.setAdapter(
@@ -55,10 +66,17 @@ public class NewTaskActivity extends AppCompatActivity {
 		Task newTask = new Task(title, description, priority);
 		
 		if (NetworkUtil.hasConnection(this)){
+			newTask.setCompleted(true);
 			createNewNote(newTask);
+			cacheNewNote(newTask);
 		}else {
-			Toast.makeText(this, "Please connect to the network", Toast.LENGTH_SHORT).show();
+			cacheNewNote(newTask);
+//			Toast.makeText(this, "Please connect to the network", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	private void cacheNewNote(Task newTask) {
+		mTaskDao.insert(newTask);
 	}
 
 	private void createNewNote(Task taskToSave) {

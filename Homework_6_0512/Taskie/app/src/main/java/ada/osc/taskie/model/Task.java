@@ -3,6 +3,7 @@ package ada.osc.taskie.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
@@ -11,8 +12,14 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.UUID;
 
+import ada.osc.taskie.util.TypeConverterUtil;
+
+@Entity(tableName = "task_table")
 public class Task implements Serializable{
 
+	@PrimaryKey
+	@NonNull
+	@ColumnInfo(name = "id")
 	@Expose
 	@SerializedName("id")
 	private String mId;
@@ -28,10 +35,9 @@ public class Task implements Serializable{
 	@Expose
 	@SerializedName("favorite")
 	private boolean mFavorite;
-
 	@Expose
 	@SerializedName("taskPriority")
-	private int mPriority;
+	public String mPriority;
 
 	public Task(){
 
@@ -46,13 +52,13 @@ public class Task implements Serializable{
 
 		switch (priority){
 			case LOW:
-				mPriority = 1;
+				mPriority = "1";
 				break;
 			case MEDIUM:
-				mPriority = 2;
+				mPriority = "2";
 				break;
 			case HIGH:
-				mPriority = 3;
+				mPriority = "3";
 				break;
 		}
 	}
@@ -90,24 +96,20 @@ public class Task implements Serializable{
 		mCompleted = completed;
 	}
 
-	public int getmPriority(){
-		return mPriority;
-	}
-
 	public TaskPriority getPriority() {
 		switch (mPriority){
-			case 1:
+			case "1":
 				return TaskPriority.LOW;
-			case 2:
+			case "2":
 				return TaskPriority.MEDIUM;
-			case 3:
+			case "3":
 				return TaskPriority.HIGH;
 		}
 
 		return TaskPriority.LOW;
 	}
 
-	public void setPriority(int mPriority) {
+	public void setPriority(String mPriority) {
 		this.mPriority = mPriority;
 	}
 

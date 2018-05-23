@@ -174,6 +174,9 @@ public class FavoriteTasksFragment extends Fragment {
     }
 
     private void updateTasksDisplay(List<Task> taskList) {
+        for (Task t : taskList){
+            t.setFavorite(true);
+        }
         taskAdapter.updateTasks(taskList);
     }
 

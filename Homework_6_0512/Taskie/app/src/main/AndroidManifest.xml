@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,6 +22,15 @@
         <activity android:name=".view.NewTaskActivity"/>
         <activity android:name=".view.TasksActivity"/>
         <activity android:name=".view.LoginActivity"/>
+
+        <receiver android:name=".networking.NetworkAvilabilityReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"></action>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"></action>
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>
