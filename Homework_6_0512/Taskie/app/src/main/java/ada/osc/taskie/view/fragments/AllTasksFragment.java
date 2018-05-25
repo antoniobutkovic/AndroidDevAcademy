@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,10 +58,10 @@ public class AllTasksFragment extends Fragment {
 
         @Override
         public void onLongClick(Task task) {
-            if (NetworkUtil.hasConnection(getActivity())) {
+            if (NetworkUtil.hasConnection(context)) {
                 showDeleteAlertDialog(task);
             } else {
-                Toast.makeText(getActivity(), "Please connect to the network", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Please connect to the network", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -105,7 +106,7 @@ public class AllTasksFragment extends Fragment {
 
         tasks.setLayoutManager(new LinearLayoutManager(getActivity()));
         tasks.setItemAnimator(new DefaultItemAnimator());
-        taskAdapter = new TaskAdapter(mListener);
+        taskAdapter = new TaskAdapter(getActivity(), mListener);
         tasks.setAdapter(taskAdapter);
 
         tasks.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -153,6 +154,9 @@ public class AllTasksFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (isScrolled || allTasks.isEmpty()) {
                         allTasks.addAll(response.body().mTaskList);
+                        for (Task t : allTasks){
+                            t.setCompleted(true);
+                        }
                         updateTasksDisplay(allTasks);
                         isScrolled = false;
                         isLoading = false;
@@ -195,10 +199,11 @@ public class AllTasksFragment extends Fragment {
     }
 
     private void deleteTask(Task task) {
-        Retrofit retrofit = RetrofitUtil.createRetrofit();
-        ApiService apiService = retrofit.create(ApiService.class);
 
         mTaskDao.delete(task);
+
+        Retrofit retrofit = RetrofitUtil.createRetrofit();
+        ApiService apiService = retrofit.create(ApiService.class);
 
         Call<Task> deleteTaskCall = apiService.deleteTask(SharedPrefsUtil.getPreferencesField(context
                 , SharedPrefsUtil.TOKEN), task.getId());
@@ -217,6 +222,7 @@ public class AllTasksFragment extends Fragment {
             public void onFailure(Call call, Throwable t) {
             }
         });
+
     }
 
     private void sendTaskToFavorites(Task task) {
@@ -226,6 +232,9 @@ public class AllTasksFragment extends Fragment {
 
         Call<Task> sendTaskToFavoritesCall = apiService.sendTaskToFavorites(SharedPrefsUtil.getPreferencesField(getActivity()
                 , SharedPrefsUtil.TOKEN), task.getId());
+
+        task.setFavorite(true);
+        mTaskDao.edit(task);
 
         sendTaskToFavoritesCall.enqueue(new Callback() {
             @Override

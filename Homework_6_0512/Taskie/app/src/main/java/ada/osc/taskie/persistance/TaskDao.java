@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ public interface TaskDao {
 
     @Delete
     void delete(Task task);
+
+    @Update
+    void edit(Task task);
 
     @Query("SELECT * from task_table")
     List<Task> getAllTasks();

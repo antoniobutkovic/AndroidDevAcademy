@@ -26,7 +26,6 @@
         <receiver android:name=".networking.NetworkAvilabilityReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"></action>
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"></action>
             </intent-filter>
         </receiver>
 

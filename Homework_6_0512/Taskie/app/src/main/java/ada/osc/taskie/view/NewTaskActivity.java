@@ -71,6 +71,7 @@ public class NewTaskActivity extends AppCompatActivity {
 			cacheNewNote(newTask);
 		}else {
 			cacheNewNote(newTask);
+			finish();
 //			Toast.makeText(this, "Please connect to the network", Toast.LENGTH_SHORT).show();
 		}
 	}

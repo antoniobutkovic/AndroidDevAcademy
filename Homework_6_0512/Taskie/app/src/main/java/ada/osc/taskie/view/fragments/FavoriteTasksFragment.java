@@ -21,6 +21,8 @@ import ada.osc.taskie.model.Task;
 import ada.osc.taskie.model.TaskList;
 import ada.osc.taskie.networking.ApiService;
 import ada.osc.taskie.networking.RetrofitUtil;
+import ada.osc.taskie.persistance.TaskDao;
+import ada.osc.taskie.persistance.TaskRoomDatabase;
 import ada.osc.taskie.util.NetworkUtil;
 import ada.osc.taskie.util.SharedPrefsUtil;
 import ada.osc.taskie.view.TaskAdapter;
@@ -39,6 +41,7 @@ public class FavoriteTasksFragment extends Fragment {
 
     private static TaskAdapter taskAdapter;
     private static Context context;
+    private TaskDao mTaskDao;
 
     TaskClickListener mListener = new TaskClickListener(){
 
@@ -58,9 +61,7 @@ public class FavoriteTasksFragment extends Fragment {
 
         @Override
         public void onSwitchClick(Task task, boolean isChecked) {
-            if (isChecked){
-//                sendTaskToFavorites(task);
-            }
+
         }
     };
 
@@ -75,6 +76,7 @@ public class FavoriteTasksFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        initDao();
 
         context = getActivity();
 
@@ -82,7 +84,7 @@ public class FavoriteTasksFragment extends Fragment {
         tasks.setItemAnimator(new DefaultItemAnimator());
 
 
-        taskAdapter = new TaskAdapter(mListener);
+        taskAdapter = new TaskAdapter(getActivity(), mListener);
 
         tasks.setAdapter(taskAdapter);
 
@@ -93,6 +95,11 @@ public class FavoriteTasksFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getTasksFromServer();
+        if (NetworkUtil.hasConnection(getActivity())) {
+            getTasksFromServer();
+        } else {
+            updateTasksDisplay(mTaskDao.getAllTasks());
+        }
     }
 
     public void getTasksFromServer() {
@@ -107,7 +114,11 @@ public class FavoriteTasksFragment extends Fragment {
             @Override
             public void onResponse(Call<TaskList> call, Response<TaskList> response) {
                 if (response.isSuccessful()) {
-                    updateTasksDisplay(response.body().mTaskList);
+                    List<Task> allTasks = response.body().mTaskList;
+                    for (Task t : allTasks){
+                        t.setCompleted(true);
+                    }
+                    updateTasksDisplay(allTasks);
                 }
             }
 
@@ -171,6 +182,11 @@ public class FavoriteTasksFragment extends Fragment {
             public void onFailure(Call call, Throwable t) {
             }
         });
+    }
+
+    private void initDao() {
+        TaskRoomDatabase database = TaskRoomDatabase.getDatabase(getActivity());
+        mTaskDao = database.taskDao();
     }
 
     private void updateTasksDisplay(List<Task> taskList) {

@@ -1,5 +1,6 @@
 package ada.osc.taskie.view;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +26,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
 	private List<Task> mTasks;
 	private TaskClickListener mListener;
+	private Context context;
 
-	public TaskAdapter(TaskClickListener listener) {
+	public TaskAdapter(Context context, TaskClickListener listener) {
 		mListener = listener;
+		this.context = context;
 		mTasks = new ArrayList<>();
 	}
 
@@ -73,7 +77,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 		return mTasks.size();
 	}
 
-	class TaskViewHolder extends RecyclerView.ViewHolder {
+    class TaskViewHolder extends RecyclerView.ViewHolder {
 
 		@BindView(R.id.textview_task_title) TextView mTitle;
 		@BindView(R.id.textview_task_description) TextView mDescription;
@@ -98,7 +102,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
 		@OnClick(R.id.switch_task_favorite)
 		public void onSwitchClick(){
-			mListener.onSwitchClick(mTasks.get(getAdapterPosition()), mFavoriteSwitch.isChecked());
+			if (NetworkUtil.hasConnection(context)) {
+				mListener.onSwitchClick(mTasks.get(getAdapterPosition()), mFavoriteSwitch.isChecked());
+			} else {
+				mFavoriteSwitch.setChecked(false);
+				Toast.makeText(context, "Please connect to the network", Toast.LENGTH_SHORT).show();
+			}
 		}
+
 	}
 }

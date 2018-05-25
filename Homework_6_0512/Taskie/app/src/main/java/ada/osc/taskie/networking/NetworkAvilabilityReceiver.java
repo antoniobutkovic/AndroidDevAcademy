@@ -29,11 +29,10 @@ public class NetworkAvilabilityReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         if (NetworkUtil.hasConnection(context)){
             for (Task t : getAllTasks(context)){
                 if (!t.isCompleted()){
-//                    sendOfflineTasksToRemoteDatabase(context, t);
+                    sendOfflineTasksToRemoteDatabase(context, t);
                 }
             }
         }
@@ -52,8 +51,6 @@ public class NetworkAvilabilityReceiver extends BroadcastReceiver{
         postNewTaskCall.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
-                if (response.isSuccessful()) {
-                }
             }
 
             @Override
