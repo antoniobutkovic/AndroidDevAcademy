@@ -1,10 +1,12 @@
-package ada.osc.myfirstweatherapp;
+package ada.osc.myfirstweatherapp.view;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
+
+import ada.osc.myfirstweatherapp.model.LocationWrapper;
 
 public class CustomViewPagerFragmentAdapter extends FragmentPagerAdapter {
     private final ArrayList<LocationWrapper> mCitiesList = new ArrayList<>();

@@ -1,4 +1,4 @@
-package ada.osc.myfirstweatherapp;
+package ada.osc.myfirstweatherapp.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import ada.osc.myfirstweatherapp.R;
+import ada.osc.myfirstweatherapp.view.AddLocationFragment;
 
 /**
  * Created by Filip on 10/02/2016.

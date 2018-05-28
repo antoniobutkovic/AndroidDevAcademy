@@ -1,5 +1,6 @@
-package ada.osc.myfirstweatherapp;
+package ada.osc.myfirstweatherapp.network;
 
+import ada.osc.myfirstweatherapp.model.WeatherResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

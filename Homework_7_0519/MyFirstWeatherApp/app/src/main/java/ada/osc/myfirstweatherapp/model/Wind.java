@@ -1,4 +1,4 @@
-package ada.osc.myfirstweatherapp;
+package ada.osc.myfirstweatherapp.model;
 
 public class Wind {
     private final double speed;

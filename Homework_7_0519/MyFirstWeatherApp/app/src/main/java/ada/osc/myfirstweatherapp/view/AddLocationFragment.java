@@ -1,4 +1,4 @@
-package ada.osc.myfirstweatherapp;
+package ada.osc.myfirstweatherapp.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import ada.osc.myfirstweatherapp.R;
 
 /**
  * Created by Filip on 10/02/2016.

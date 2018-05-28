@@ -1,4 +1,4 @@
-package ada.osc.myfirstweatherapp;
+package ada.osc.myfirstweatherapp.model;
 
 public class WeatherResponse {
     private Weather[] weather = new Weather[1];

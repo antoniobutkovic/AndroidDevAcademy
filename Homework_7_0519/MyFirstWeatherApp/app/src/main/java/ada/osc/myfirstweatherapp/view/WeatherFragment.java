@@ -1,8 +1,7 @@
-package ada.osc.myfirstweatherapp;
+package ada.osc.myfirstweatherapp.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import ada.osc.myfirstweatherapp.App;
+import ada.osc.myfirstweatherapp.Constants;
+import ada.osc.myfirstweatherapp.R;
+import ada.osc.myfirstweatherapp.model.WeatherResponse;
+import ada.osc.myfirstweatherapp.network.ApiService;
+import ada.osc.myfirstweatherapp.util.NetworkUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -119,7 +124,7 @@ public class WeatherFragment extends Fragment {
     }
 
     private void refreshCurrentData() {
-        if (NetworkUtils.checkIfInternetConnectionIsAvailable(getActivity())) {
+        if (NetworkUtil.checkIfInternetConnectionIsAvailable(getActivity())) {
         }
     }
 }

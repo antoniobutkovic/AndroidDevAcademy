@@ -1,4 +1,4 @@
-package ada.osc.myfirstweatherapp;
+package ada.osc.myfirstweatherapp.model;
 
 /**
  * Created by Filip on 10/02/2016.
