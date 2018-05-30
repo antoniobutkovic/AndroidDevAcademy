@@ -21,14 +21,23 @@ import ada.osc.myfirstweatherapp.presentation.WeatherPresenter;
 import ada.osc.myfirstweatherapp.presentation.WeatherPresenterImpl;
 import ada.osc.myfirstweatherapp.view.adapter.LocationPagerAdapter;
 import ada.osc.myfirstweatherapp.view.addLocation.NewLocationActivity;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class WeatherActivity extends AppCompatActivity implements WeatherView{
 
-    private Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private ViewPager viewPager;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.main_activity_drawer_layout)
+    DrawerLayout drawerLayout;
+
+    @BindView(R.id.main_activity_navigation_view)
+    NavigationView navigationView;
+
+    @BindView(R.id.main_activity_view_pager)
+    ViewPager viewPager;
+
     private LocationPagerAdapter adapter;
     private WeatherPresenter presenter;
 
@@ -68,7 +77,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     }
 
     private void initNavigationDrawer() {
-        navigationView = (NavigationView) findViewById(R.id.main_activity_navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -79,7 +87,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.main_activity_title);
         ActionBar actionBar = getSupportActionBar();
