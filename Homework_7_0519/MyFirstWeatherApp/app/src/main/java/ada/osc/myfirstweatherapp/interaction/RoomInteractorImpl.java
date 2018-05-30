@@ -1,5 +1,7 @@
 package ada.osc.myfirstweatherapp.interaction;
 
+import android.util.Log;
+
 import ada.osc.myfirstweatherapp.App;
 import ada.osc.myfirstweatherapp.model.Location;
 import ada.osc.myfirstweatherapp.persistance.LocationDao;
@@ -12,17 +14,18 @@ public class RoomInteractorImpl implements RoomInteractor{
 
     private final LocationDao locationDao;
 
-    public RoomInteractorImpl(){
-         locationDao = App.getLocationDao();
+    public RoomInteractorImpl(LocationDao locationDao){
+         this.locationDao = locationDao;
     }
 
     @Override
-    public void insertLocation(Location location) {
+    public void insertLocation(RoomCallback roomCallback, Location location) {
         locationDao.insert(location);
+        roomCallback.onLocationAdded();
     }
 
     @Override
-    public void getLocations() {
-
+    public void getAllLocations(RoomCallback roomCallback) {
+        roomCallback.onReadLocationsSuccess(locationDao.getAllLocations());
     }
 }

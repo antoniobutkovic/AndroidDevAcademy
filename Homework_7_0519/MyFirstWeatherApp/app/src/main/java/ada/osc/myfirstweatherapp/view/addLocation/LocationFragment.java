@@ -3,6 +3,7 @@ package ada.osc.myfirstweatherapp.view.addLocation;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import ada.osc.myfirstweatherapp.App;
 import ada.osc.myfirstweatherapp.R;
 import ada.osc.myfirstweatherapp.model.Location;
 import ada.osc.myfirstweatherapp.presentation.NewLocationPresenter;
 import ada.osc.myfirstweatherapp.presentation.NewLocationPresenterImpl;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -36,8 +39,14 @@ public class LocationFragment extends Fragment implements NewLocationView{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new NewLocationPresenterImpl();
+        ButterKnife.bind(this, view);
+        presenter = new NewLocationPresenterImpl(App.getRoomInteractor());
         presenter.setView(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     public void onSuccess() {

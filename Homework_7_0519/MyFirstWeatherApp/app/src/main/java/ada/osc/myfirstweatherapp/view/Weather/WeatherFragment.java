@@ -58,26 +58,6 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-        String cityToDisplay = getArguments().getString(Constants.CITY_BUNDLE_KEY);
-
-        App.getRetrofit().create(ApiService.class).getWeather(Constants.APP_ID, cityToDisplay).enqueue(new Callback<WeatherResponse>() {
-            @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                if (response != null && response.body() != null) {
-                    WeatherResponse data = response.body();
-
-                    setCurrentTemperatureValues(data.getMain().getTempMax());
-                    setPressureValues(data.getMain().getPressure());
-                    setDescriptionValues(data.getWeatherObject().getDescription());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
-
-            }
-        });
     }
 
     private void initUI(View view) {

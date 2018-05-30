@@ -13,38 +13,40 @@ import android.view.MenuItem;
 
 import java.util.List;
 
+import ada.osc.myfirstweatherapp.App;
 import ada.osc.myfirstweatherapp.Constants;
 import ada.osc.myfirstweatherapp.R;
 import ada.osc.myfirstweatherapp.model.Location;
+import ada.osc.myfirstweatherapp.presentation.WeatherPresenter;
+import ada.osc.myfirstweatherapp.presentation.WeatherPresenterImpl;
 import ada.osc.myfirstweatherapp.view.adapter.LocationPagerAdapter;
 import ada.osc.myfirstweatherapp.view.addLocation.NewLocationActivity;
+import butterknife.ButterKnife;
 
-public class WeatherActivity extends AppCompatActivity {
+public class WeatherActivity extends AppCompatActivity implements WeatherView{
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ViewPager viewPager;
     private LocationPagerAdapter adapter;
+    private WeatherPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+        ButterKnife.bind(this);
+        presenter = new WeatherPresenterImpl(App.getApiInteractor(), App.getRoomInteractor());
+        presenter.setView(this);
         initUI();
         initToolbar();
     }
 
-    private void setPagerAdapter(List<Location> locationWrappers) {
-        adapter = new LocationPagerAdapter(getSupportFragmentManager());
-        adapter.setAdapterData(locationWrappers);
-        viewPager.setAdapter(adapter);
-    }
-
     @Override
-    protected void onStart() {
-        super.onStart();
-
+    protected void onResume() {
+        super.onResume();
+        presenter.getAllLocations();
         initNavigationDrawer();
     }
 
@@ -140,5 +142,12 @@ public class WeatherActivity extends AppCompatActivity {
 
     private double toCelsiusFromKelvin(double temperature) {
         return temperature - 273;
+    }
+
+    @Override
+    public void setAdapter(List<Location> locations) {
+        adapter = new LocationPagerAdapter(getSupportFragmentManager());
+        adapter.setAdapterData(locations);
+        viewPager.setAdapter(adapter);
     }
 }

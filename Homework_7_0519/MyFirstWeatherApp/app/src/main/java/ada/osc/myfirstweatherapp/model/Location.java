@@ -11,7 +11,7 @@ import java.util.UUID;
  * Created by Filip on 10/02/2016.
  */
 
-@Entity(tableName = "task_table")
+@Entity(tableName = "location_table")
 public class Location {
 
     @PrimaryKey
@@ -27,5 +27,17 @@ public class Location {
 
     public String getLocation() {
         return location;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

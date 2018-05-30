@@ -8,12 +8,8 @@ import ada.osc.myfirstweatherapp.model.Location;
 
 public interface RoomInteractor {
 
-    interface onLocationInserted{
-        void onSuccess();
-    }
+    void insertLocation(RoomCallback roomCallback, Location location);
 
-    void insertLocation(Location location);
-
-    void getLocations();
+    void getAllLocations(RoomCallback roomCallback);
 
 }
