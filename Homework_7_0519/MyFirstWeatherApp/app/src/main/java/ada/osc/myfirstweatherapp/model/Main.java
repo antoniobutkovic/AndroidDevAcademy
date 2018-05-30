@@ -2,15 +2,15 @@ package ada.osc.myfirstweatherapp.model;
 
 public class Main {
     private double temp;
-    private double temp_min;
-    private double temp_max;
+    private double tempMin;
+    private double tempMax;
     private int humidity;
     private double pressure;
 
-    public Main(double temp, double temp_min, double temp_max, int humidity, double pressure) {
+    public Main(double temp, double tempMin, double tempMax, int humidity, double pressure) {
         this.temp = temp;
-        this.temp_min = temp_min;
-        this.temp_max = temp_max;
+        this.tempMin = tempMin;
+        this.tempMax = tempMax;
         this.humidity = humidity;
         this.pressure = pressure;
     }
@@ -23,20 +23,20 @@ public class Main {
         this.temp = temp;
     }
 
-    public double getTemp_min() {
-        return temp_min;
+    public double getTempMin() {
+        return tempMin;
     }
 
-    public void setTemp_min(double temp_min) {
-        this.temp_min = temp_min;
+    public void setTempMin(double tempMin) {
+        this.tempMin = tempMin;
     }
 
-    public double getTemp_max() {
-        return temp_max;
+    public double getTempMax() {
+        return tempMax;
     }
 
-    public void setTemp_max(double temp_max) {
-        this.temp_max = temp_max;
+    public void setTempMax(double tempMax) {
+        this.tempMax = tempMax;
     }
 
     public int getHumidity() {

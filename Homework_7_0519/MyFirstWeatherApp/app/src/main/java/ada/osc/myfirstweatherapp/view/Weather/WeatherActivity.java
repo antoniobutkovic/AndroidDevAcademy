@@ -1,4 +1,4 @@
-package ada.osc.myfirstweatherapp.view;
+package ada.osc.myfirstweatherapp.view.Weather;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,34 +11,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import ada.osc.myfirstweatherapp.Constants;
 import ada.osc.myfirstweatherapp.R;
-import ada.osc.myfirstweatherapp.model.LocationWrapper;
-import ada.osc.myfirstweatherapp.view.AddNewLocationActivity;
-import ada.osc.myfirstweatherapp.view.CustomViewPagerFragmentAdapter;
+import ada.osc.myfirstweatherapp.model.Location;
+import ada.osc.myfirstweatherapp.view.adapter.LocationPagerAdapter;
+import ada.osc.myfirstweatherapp.view.addLocation.NewLocationActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class WeatherActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
+    private Toolbar toolbar;
     private DrawerLayout drawerLayout;
-    private NavigationView mNavigationView;
+    private NavigationView navigationView;
     private ViewPager viewPager;
-    private CustomViewPagerFragmentAdapter adapter;
+    private LocationPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_weather);
         initUI();
         initToolbar();
+    }
 
-        adapter = new CustomViewPagerFragmentAdapter(getSupportFragmentManager());
-
-        ArrayList<LocationWrapper> locationWrappers = new ArrayList<>();
-        locationWrappers.add(new LocationWrapper("Zagreb"));
-
+    private void setPagerAdapter(List<Location> locationWrappers) {
+        adapter = new LocationPagerAdapter(getSupportFragmentManager());
         adapter.setAdapterData(locationWrappers);
         viewPager.setAdapter(adapter);
     }
@@ -46,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         initNavigationDrawer();
     }
 
@@ -67,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initNavigationDrawer() {
-        mNavigationView = (NavigationView) findViewById(R.id.main_activity_navigation_view);
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView = (NavigationView) findViewById(R.id.main_activity_navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 handleItemSelectedClick(item.getItemId());
@@ -78,20 +77,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        mToolbar.setTitle(R.string.main_activity_title);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.main_activity_title);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
+            toolbar.setNavigationIcon(R.drawable.ic_menu_white);
         }
     }
 
     private void handleItemSelectedClick(int itemID) {
         switch (itemID) {
             case R.id.menu_add_new_location: {
-                startActivity(new Intent(this, AddNewLocationActivity.class));
+                startActivity(new Intent(this, NewLocationActivity.class));
                 drawerLayout.closeDrawers();
                 break;
             }

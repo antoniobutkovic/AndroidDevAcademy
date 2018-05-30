@@ -1,4 +1,4 @@
-package ada.osc.myfirstweatherapp.view;
+package ada.osc.myfirstweatherapp.view.Weather;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -58,6 +58,7 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         String cityToDisplay = getArguments().getString(Constants.CITY_BUNDLE_KEY);
 
         App.getRetrofit().create(ApiService.class).getWeather(Constants.APP_ID, cityToDisplay).enqueue(new Callback<WeatherResponse>() {
@@ -66,7 +67,7 @@ public class WeatherFragment extends Fragment {
                 if (response != null && response.body() != null) {
                     WeatherResponse data = response.body();
 
-                    setCurrentTemperatureValues(data.getMain().getTemp_max());
+                    setCurrentTemperatureValues(data.getMain().getTempMax());
                     setPressureValues(data.getMain().getPressure());
                     setDescriptionValues(data.getWeatherObject().getDescription());
                 }

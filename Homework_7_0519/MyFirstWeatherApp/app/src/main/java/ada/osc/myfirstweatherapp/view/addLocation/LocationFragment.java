@@ -1,4 +1,4 @@
-package ada.osc.myfirstweatherapp.view;
+package ada.osc.myfirstweatherapp.view.addLocation;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,13 +11,21 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import ada.osc.myfirstweatherapp.R;
+import ada.osc.myfirstweatherapp.model.Location;
+import ada.osc.myfirstweatherapp.presentation.NewLocationPresenter;
+import ada.osc.myfirstweatherapp.presentation.NewLocationPresenterImpl;
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Filip on 10/02/2016.
  */
-public class AddLocationFragment extends Fragment implements View.OnClickListener {
-    private EditText mEnterLocationNameEditText;
-    private Button mAddLocationButton;
+public class LocationFragment extends Fragment implements NewLocationView{
+
+    private NewLocationPresenter presenter;
+
+    @BindView(R.id.fragment_add_location_enter_city_edit_text)
+    EditText cityEt;
 
     @Nullable
     @Override
@@ -28,12 +36,8 @@ public class AddLocationFragment extends Fragment implements View.OnClickListene
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initUI(view);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
+        presenter = new NewLocationPresenterImpl();
+        presenter.setView(this);
     }
 
     public void onSuccess() {
@@ -42,23 +46,22 @@ public class AddLocationFragment extends Fragment implements View.OnClickListene
     }
 
     public void onLocationAlreadyExistsError() {
-        mEnterLocationNameEditText.setError(getActivity().getString(R.string.location_already_exists_error_message));
+        cityEt.setError(getActivity().getString(R.string.location_already_exists_error_message));
     }
 
     public void onEmptyStringRequestError() {
-        mEnterLocationNameEditText.setError(getActivity().getString(R.string.empty_location_string_error_message));
+        cityEt.setError(getActivity().getString(R.string.empty_location_string_error_message));
     }
 
-    private void initUI(View view) {
-        mEnterLocationNameEditText = (EditText) view.findViewById(R.id.fragment_add_location_enter_city_edit_text);
-        mAddLocationButton = (Button) view.findViewById(R.id.fragment_add_location_button);
-        mAddLocationButton.setOnClickListener(this);
+    @OnClick(R.id.fragment_add_location_button)
+    public void onAddLocationBtnClicked(){
+        addNewLocation();
     }
 
-
-    @Override
-    public void onClick(View v) {
-        if (v == mAddLocationButton) {
-        }
+    private void addNewLocation() {
+        String city = cityEt.getText().toString();
+        Location newLocation = new Location(city);
+        presenter.addNewLocation(newLocation);
     }
+
 }

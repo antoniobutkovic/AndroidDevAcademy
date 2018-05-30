@@ -1,4 +1,4 @@
-package ada.osc.myfirstweatherapp.view;
+package ada.osc.myfirstweatherapp.view.addLocation;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,12 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import ada.osc.myfirstweatherapp.R;
-import ada.osc.myfirstweatherapp.view.AddLocationFragment;
 
 /**
  * Created by Filip on 10/02/2016.
  */
-public class AddNewLocationActivity extends AppCompatActivity {
+public class NewLocationActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
 
@@ -29,7 +28,7 @@ public class AddNewLocationActivity extends AppCompatActivity {
         if (getSupportFragmentManager().findFragmentById(R.id.add_location_activity_frame_layout) == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.add_location_activity_frame_layout, new AddLocationFragment())
+                    .add(R.id.add_location_activity_frame_layout, new LocationFragment())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
         }

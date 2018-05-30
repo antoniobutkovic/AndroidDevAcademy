@@ -4,14 +4,14 @@ public class WeatherResponse {
     private Weather[] weather = new Weather[1];
     private Main main;
     private Wind wind;
-    private String dt_txt;
+    private String dtTxt;
     private String cityName;
 
-    public WeatherResponse(Weather[] weather, Main main, Wind wind, String dt_txt, String cityName) {
+    public WeatherResponse(Weather[] weather, Main main, Wind wind, String dtTxt, String cityName) {
         this.weather = weather;
         this.main = main;
         this.wind = wind;
-        this.dt_txt = dt_txt;
+        this.dtTxt = dtTxt;
         this.cityName = cityName;
     }
 
@@ -30,8 +30,8 @@ public class WeatherResponse {
         return weather[0];
     }
 
-    public String getDt_txt() {
-        return dt_txt;
+    public String getDtTxt() {
+        return dtTxt;
     }
 
     public void setWeatherObject(Weather weatherObject) {
