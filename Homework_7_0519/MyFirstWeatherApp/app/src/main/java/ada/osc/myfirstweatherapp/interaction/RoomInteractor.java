@@ -12,4 +12,6 @@ public interface RoomInteractor {
 
     void getAllLocations(RoomCallback roomCallback);
 
+    boolean isLocationDuplicated(String location);
+
 }

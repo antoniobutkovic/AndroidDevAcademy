@@ -21,4 +21,7 @@ public interface LocationDao {
     @Query("SELECT * from location_table")
     List<Location> getAllLocations();
 
+    @Query("SELECT * from location_table where location = :location")
+    boolean isLocationDuplicated(String location);
+
 }

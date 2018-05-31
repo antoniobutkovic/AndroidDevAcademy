@@ -31,15 +31,11 @@ public class NewLocationPresenterImpl implements NewLocationPresenter{
     public void addNewLocation(Location location) {
         if (location.getLocation().isEmpty()){
             view.onEmptyStringRequestError();
-        }else if (isLocationDuplicated(location)){
+        }else if (interactor.isLocationDuplicated(location.getLocation())){
             view.onLocationAlreadyExistsError();
         }else {
             interactor.insertLocation(roomCallback, location);
         }
-    }
-
-    public boolean isLocationDuplicated(Location location) {
-        return false;
     }
 
     RoomCallback roomCallback = new RoomCallback() {
@@ -51,6 +47,11 @@ public class NewLocationPresenterImpl implements NewLocationPresenter{
         @Override
         public void onReadLocationsSuccess(List<Location> locations) {
 
+        }
+
+        @Override
+        public void onLocationDuplicateCheckFinished() {
+            view.onLocationAlreadyExistsError();
         }
     };
 }

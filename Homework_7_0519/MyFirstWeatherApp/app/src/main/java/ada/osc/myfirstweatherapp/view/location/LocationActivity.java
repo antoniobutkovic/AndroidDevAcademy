@@ -117,49 +117,6 @@ public class LocationActivity extends AppCompatActivity implements LocationView 
         }
     }
 
-    private void createWeatherIconValue(String description) {
-        if (description != null)
-            switch (description) {
-                case Constants.SNOW_CASE: {
-                    setWeatherIcon(Constants.SNOW);
-                    break;
-                }
-                case Constants.RAIN_CASE: {
-                    setWeatherIcon(Constants.RAIN);
-                    break;
-                }
-                case Constants.CLEAR_CASE: {
-                    setWeatherIcon(Constants.SUN);
-                    break;
-                }
-                case Constants.MIST_CASE: {
-                    setWeatherIcon(Constants.FOG);
-                    break;
-                }
-                case Constants.FOG_CASE: {
-                    setWeatherIcon(Constants.FOG);
-                    break;
-                }
-                case Constants.HAZE_CASE: {
-                    setWeatherIcon(Constants.FOG);
-                    break;
-                }
-                case Constants.CLOUD_CASE: {
-                    setWeatherIcon(Constants.CLOUD);
-                    break;
-                }
-            }
-    }
-
-    // TODO: 18/05/2018 load image using the constants (hint image base + path)
-    private void setWeatherIcon(String iconPath) {
-
-    }
-
-    private double toCelsiusFromKelvin(double temperature) {
-        return temperature - 273;
-    }
-
     @Override
     public void onLocationAdded(List<Location> locations) {
         if (locations.isEmpty()){

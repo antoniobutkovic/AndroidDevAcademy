@@ -28,4 +28,9 @@ public class RoomInteractorImpl implements RoomInteractor{
     public void getAllLocations(RoomCallback roomCallback) {
         roomCallback.onReadLocationsSuccess(locationDao.getAllLocations());
     }
+
+    @Override
+    public boolean isLocationDuplicated(String location) {
+        return locationDao.isLocationDuplicated(location);
+    }
 }

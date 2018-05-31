@@ -13,4 +13,6 @@ public interface RoomCallback {
     void onLocationAdded();
 
     void onReadLocationsSuccess(List<Location> locations);
+
+    void onLocationDuplicateCheckFinished();
 }

@@ -83,17 +83,15 @@ public class WeatherFragment extends Fragment implements WeatherView{
     }
 
     public void setCurrentTemperatureValues(double temperatureValues) {
-        if (isAdded()){
-            currentTemperature.setText(getString(R.string.current_temperature_message, temperatureValues));
-        }
+        currentTemperature.setText(getString(R.string.current_temperature_message, toCelsiusFromKelvin(temperatureValues)));
     }
 
     public void setMinTemperatureValues(double minTemperatureValues) {
-        minTemperature.setText(getString(R.string.minimum_temperature_message, minTemperatureValues));
+        minTemperature.setText(getString(R.string.minimum_temperature_message, toCelsiusFromKelvin(minTemperatureValues)));
     }
 
     public void setMaxTemperatureValues(double maxTemperatureValues) {
-        maxTemperature.setText(getString(R.string.maximum_temperature_message, maxTemperatureValues));
+        maxTemperature.setText(getString(R.string.maximum_temperature_message, toCelsiusFromKelvin(maxTemperatureValues)));
     }
 
     public void setPressureValues(double pressureValues) {
@@ -103,6 +101,42 @@ public class WeatherFragment extends Fragment implements WeatherView{
 
     public void setWindValues(double windValues) {
         wind.setText(getString(R.string.wind_speed_message, windValues));
+    }
+
+
+
+    private void createWeatherIconValue(String description) {
+        if (description != null)
+            switch (description) {
+                case Constants.SNOW_CASE: {
+                    setWeatherIcon(Constants.SNOW);
+                    break;
+                }
+                case Constants.RAIN_CASE: {
+                    setWeatherIcon(Constants.RAIN);
+                    break;
+                }
+                case Constants.CLEAR_CASE: {
+                    setWeatherIcon(Constants.SUN);
+                    break;
+                }
+                case Constants.MIST_CASE: {
+                    setWeatherIcon(Constants.FOG);
+                    break;
+                }
+                case Constants.FOG_CASE: {
+                    setWeatherIcon(Constants.FOG);
+                    break;
+                }
+                case Constants.HAZE_CASE: {
+                    setWeatherIcon(Constants.FOG);
+                    break;
+                }
+                case Constants.CLOUD_CASE: {
+                    setWeatherIcon(Constants.CLOUD);
+                    break;
+                }
+            }
     }
 
     public void setWeatherIcon(String iconPath) {
@@ -120,13 +154,17 @@ public class WeatherFragment extends Fragment implements WeatherView{
         setMinTemperatureValues(weatherResponse.getMain().getTempMin());
         setPressureValues(weatherResponse.getMain().getPressure());
         setWindValues(weatherResponse.getWind().getSpeed());
-        setWeatherIcon(weatherResponse.getWeatherObject().getMain());
+        createWeatherIconValue(weatherResponse.getWeatherObject().getMain());
         setDescriptionValues(weatherResponse.getWeatherObject().getDescription());
     }
 
     @Override
     public void onFailure() {
         Toast.makeText(getActivity().getApplicationContext(), getString(R.string.weather_fragment_loading_failure_toast_message), Toast.LENGTH_SHORT).show();
+    }
+
+    private double toCelsiusFromKelvin(double temperature) {
+        return temperature - 273;
     }
 
     private void refreshCurrentData() {
