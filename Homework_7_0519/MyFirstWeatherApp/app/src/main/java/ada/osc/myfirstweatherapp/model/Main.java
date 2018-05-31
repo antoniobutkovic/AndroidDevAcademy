@@ -1,10 +1,24 @@
 package ada.osc.myfirstweatherapp.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Main {
+
+    @Expose
+    @SerializedName("temp")
     private double temp;
+    @Expose
+    @SerializedName("temp_min")
     private double tempMin;
+    @Expose
+    @SerializedName("temp_max")
     private double tempMax;
+    @Expose
+    @SerializedName("humidity")
     private int humidity;
+    @Expose
+    @SerializedName("pressure")
     private double pressure;
 
     public Main(double temp, double tempMin, double tempMax, int humidity, double pressure) {

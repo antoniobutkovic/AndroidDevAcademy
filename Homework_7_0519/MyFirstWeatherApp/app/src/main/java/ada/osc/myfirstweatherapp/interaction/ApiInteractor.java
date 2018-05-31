@@ -9,6 +9,6 @@ import retrofit2.Callback;
 
 public interface ApiInteractor {
 
-    void getLocationInfo(Callback<WeatherResponse> getAllLocationsCallback);
+    void getWeatherInfo(Callback<WeatherResponse> getAllLocationsCallback, String locationName);
 
 }

@@ -1,5 +1,7 @@
 package ada.osc.myfirstweatherapp.interaction;
 
+import android.util.Log;
+
 import ada.osc.myfirstweatherapp.Constants;
 import ada.osc.myfirstweatherapp.model.WeatherResponse;
 import ada.osc.myfirstweatherapp.network.ApiService;
@@ -18,7 +20,7 @@ public class ApiInteractorImpl implements ApiInteractor{
     }
 
     @Override
-    public void getLocationInfo(Callback<WeatherResponse> getLocationInfoCallback) {
-
+    public void getWeatherInfo(Callback<WeatherResponse> callback, String locationName) {
+        apiService.getWeather(Constants.APP_ID, locationName).enqueue(callback);
     }
 }

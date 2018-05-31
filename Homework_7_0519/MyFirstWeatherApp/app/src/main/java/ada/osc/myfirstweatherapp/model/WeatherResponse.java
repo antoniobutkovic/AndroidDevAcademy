@@ -1,10 +1,24 @@
 package ada.osc.myfirstweatherapp.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class WeatherResponse {
+
+    @Expose
+    @SerializedName("weather")
     private Weather[] weather = new Weather[1];
+    @Expose
+    @SerializedName("main")
     private Main main;
+    @Expose
+    @SerializedName("wind")
     private Wind wind;
+    @Expose
+    @SerializedName("dt")
     private String dtTxt;
+    @Expose
+    @SerializedName("name")
     private String cityName;
 
     public WeatherResponse(Weather[] weather, Main main, Wind wind, String dtTxt, String cityName) {

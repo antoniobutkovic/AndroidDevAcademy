@@ -28,5 +28,7 @@
     <string name="wind_direction_message">%1$s</string>
     <string name="humidity_message">%1$d%% humidity</string>
     <string name="forecast_toolbar_title">"Forecast: %1$s"</string>
+    <string name="no_locations_added">No locations added. Please add new location in order to get weather info.</string>
+    <string name="weather_fragment_no_connection_toast_message">Please connect to the network.</string>
 
 </resources>

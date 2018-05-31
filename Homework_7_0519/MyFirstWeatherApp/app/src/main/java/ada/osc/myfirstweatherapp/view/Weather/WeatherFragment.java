@@ -3,6 +3,7 @@ package ada.osc.myfirstweatherapp.view.Weather;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,24 +17,39 @@ import ada.osc.myfirstweatherapp.App;
 import ada.osc.myfirstweatherapp.Constants;
 import ada.osc.myfirstweatherapp.R;
 import ada.osc.myfirstweatherapp.model.WeatherResponse;
-import ada.osc.myfirstweatherapp.network.ApiService;
+import ada.osc.myfirstweatherapp.presentation.WeatherPresenter;
+import ada.osc.myfirstweatherapp.presentation.WeatherPresenterImpl;
 import ada.osc.myfirstweatherapp.util.NetworkUtil;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 26/03/2016.
  */
-public class WeatherFragment extends Fragment {
+public class WeatherFragment extends Fragment implements WeatherView{
 
-    private TextView mCurrentTemperature;
-    private TextView mMinTemperature;
-    private TextView mMaxTemperature;
-    private TextView mPressure;
-    private TextView mWind;
-    private TextView mDescription;
-    private ImageView mWeatherIcon;
+    @BindView(R.id.weather_display_current_temperature_text_view)
+    TextView currentTemperature;
+
+    @BindView(R.id.weather_fragment_min_temperature_text_view)
+    TextView minTemperature;
+
+    @BindView(R.id.weather_fragment_max_temperature_text_view)
+    TextView maxTemperature;
+
+    @BindView(R.id.weather_display_pressure_text_view)
+    TextView pressure;
+
+    @BindView(R.id.weather_display_wind_text_view)
+    TextView wind;
+
+    @BindView(R.id.weather_display_detailed_description_text_view)
+    TextView description;
+
+    @BindView(R.id.weather_display_weather_icon_image_view)
+    ImageView weatherIcon;
+
+    private WeatherPresenter presenter;
 
     public static WeatherFragment newInstance(String city) {
         Bundle data = new Bundle();
@@ -42,6 +58,7 @@ public class WeatherFragment extends Fragment {
         f.setArguments(data);
         return f;
     }
+
 
     @Nullable
     @Override
@@ -52,60 +69,72 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initUI(view);
+        ButterKnife.bind(this, view);
+
+        presenter = new WeatherPresenterImpl(App.getApiInteractor());
+        presenter.setView(this);
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-    }
-
-    private void initUI(View view) {
-        mCurrentTemperature = (TextView) view.findViewById(R.id.weather_display_current_temperature_text_view);
-        mMinTemperature = (TextView) view.findViewById(R.id.weather_fragment_min_temperature_text_view);
-        mMaxTemperature = (TextView) view.findViewById(R.id.weather_fragment_max_temperature_text_view);
-        mPressure = (TextView) view.findViewById(R.id.weather_display_pressure_text_view);
-        mWind = (TextView) view.findViewById(R.id.weather_display_wind_text_view);
-        mDescription = (TextView) view.findViewById(R.id.weather_display_detailed_description_text_view);
-        mWeatherIcon = (ImageView) view.findViewById(R.id.weather_display_weather_icon_image_view);
+        refreshCurrentData();
     }
 
     public void setCurrentTemperatureValues(double temperatureValues) {
-        mCurrentTemperature.setText(getString(R.string.current_temperature_message, temperatureValues));
+        if (isAdded()){
+            currentTemperature.setText(getString(R.string.current_temperature_message, temperatureValues));
+        }
     }
 
     public void setMinTemperatureValues(double minTemperatureValues) {
-        mMinTemperature.setText(getString(R.string.minimum_temperature_message, minTemperatureValues));
+        minTemperature.setText(getString(R.string.minimum_temperature_message, minTemperatureValues));
     }
 
     public void setMaxTemperatureValues(double maxTemperatureValues) {
-        mMaxTemperature.setText(getString(R.string.maximum_temperature_message, maxTemperatureValues));
+        maxTemperature.setText(getString(R.string.maximum_temperature_message, maxTemperatureValues));
     }
 
     public void setPressureValues(double pressureValues) {
-        mPressure.setText(getString(R.string.pressure_message, pressureValues));
+        pressure.setText(getString(R.string.pressure_message, pressureValues));
 
     }
 
     public void setWindValues(double windValues) {
-        mWind.setText(getString(R.string.wind_speed_message, windValues));
+        wind.setText(getString(R.string.wind_speed_message, windValues));
     }
 
     public void setWeatherIcon(String iconPath) {
-        Glide.with(getActivity().getApplicationContext()).load(Constants.IMAGE_BASE_URL + iconPath).into(mWeatherIcon);
+        Glide.with(getActivity().getApplicationContext()).load(Constants.IMAGE_BASE_URL + iconPath).into(weatherIcon);
     }
 
     public void setDescriptionValues(String descriptionValues) {
-        mDescription.setText(descriptionValues);
+        description.setText(descriptionValues);
     }
 
+    @Override
+    public void updateUI(WeatherResponse weatherResponse) {
+        setCurrentTemperatureValues(weatherResponse.getMain().getTemp());
+        setMaxTemperatureValues(weatherResponse.getMain().getTempMax());
+        setMinTemperatureValues(weatherResponse.getMain().getTempMin());
+        setPressureValues(weatherResponse.getMain().getPressure());
+        setWindValues(weatherResponse.getWind().getSpeed());
+        setWeatherIcon(weatherResponse.getWeatherObject().getMain());
+        setDescriptionValues(weatherResponse.getWeatherObject().getDescription());
+    }
 
+    @Override
     public void onFailure() {
         Toast.makeText(getActivity().getApplicationContext(), getString(R.string.weather_fragment_loading_failure_toast_message), Toast.LENGTH_SHORT).show();
     }
 
     private void refreshCurrentData() {
         if (NetworkUtil.checkIfInternetConnectionIsAvailable(getActivity())) {
+            String locationName = getArguments().getString(Constants.CITY_BUNDLE_KEY);
+            presenter.getWeatherInfo(locationName);
+        }else {
+            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.weather_fragment_no_connection_toast_message), Toast.LENGTH_SHORT).show();
         }
     }
 }

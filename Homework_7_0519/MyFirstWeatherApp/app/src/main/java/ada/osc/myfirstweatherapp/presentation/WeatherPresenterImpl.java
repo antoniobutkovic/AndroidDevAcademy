@@ -1,5 +1,6 @@
 package ada.osc.myfirstweatherapp.presentation;
 
+import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -25,9 +26,8 @@ public class WeatherPresenterImpl implements WeatherPresenter{
     private RoomInteractor roomInteractor;
     private WeatherView view;
 
-    public WeatherPresenterImpl(ApiInteractor apiInteractor, RoomInteractor roomInteractor){
+    public WeatherPresenterImpl(ApiInteractor apiInteractor){
         this.apiInteractor = apiInteractor;
-        this.roomInteractor = roomInteractor;
     }
 
     @Override
@@ -36,34 +36,23 @@ public class WeatherPresenterImpl implements WeatherPresenter{
     }
 
     @Override
-    public void getAllLocations() {
-        roomInteractor.getAllLocations(roomCallback);
+    public void getWeatherInfo(String locationName) {
+        apiInteractor.getWeatherInfo(getWeatherInfoCallback(), locationName);
     }
 
-    RoomCallback roomCallback = new RoomCallback() {
-        @Override
-        public void onLocationAdded() {
-
-        }
-
-        @Override
-        public void onReadLocationsSuccess(List<Location> locations) {
-            view.setAdapter(locations);
-        }
-    };
-
-    private Callback<WeatherResponse> getWeatherInfo() {
+    private Callback<WeatherResponse> getWeatherInfoCallback() {
         return new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-
+                    WeatherResponse weatherResponse = response.body();
+                    view.updateUI(weatherResponse);
                 }
             }
 
             @Override
             public void onFailure(Call<WeatherResponse> call, Throwable t) {
-
+                view.onFailure();
             }
         };
     }

@@ -12,6 +12,6 @@ public interface WeatherPresenter {
 
     void setView(WeatherView weatherView);
 
-    void getAllLocations();
+    void getWeatherInfo(String locationName);
 
 }

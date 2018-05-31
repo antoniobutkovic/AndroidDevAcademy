@@ -1,4 +1,4 @@
-package ada.osc.myfirstweatherapp.view.Weather;
+package ada.osc.myfirstweatherapp.view.location;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -17,14 +19,19 @@ import ada.osc.myfirstweatherapp.App;
 import ada.osc.myfirstweatherapp.Constants;
 import ada.osc.myfirstweatherapp.R;
 import ada.osc.myfirstweatherapp.model.Location;
+import ada.osc.myfirstweatherapp.model.WeatherResponse;
+import ada.osc.myfirstweatherapp.presentation.LocationPresenter;
+import ada.osc.myfirstweatherapp.presentation.LocationPresenterImpl;
 import ada.osc.myfirstweatherapp.presentation.WeatherPresenter;
 import ada.osc.myfirstweatherapp.presentation.WeatherPresenterImpl;
+import ada.osc.myfirstweatherapp.view.Weather.WeatherFragment;
+import ada.osc.myfirstweatherapp.view.Weather.WeatherView;
 import ada.osc.myfirstweatherapp.view.adapter.LocationPagerAdapter;
 import ada.osc.myfirstweatherapp.view.addLocation.NewLocationActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WeatherActivity extends AppCompatActivity implements WeatherView{
+public class LocationActivity extends AppCompatActivity implements LocationView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -38,25 +45,30 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     @BindView(R.id.main_activity_view_pager)
     ViewPager viewPager;
 
+    @BindView(R.id.main_activity_text_view)
+    TextView noLocationsTv;
+
     private LocationPagerAdapter adapter;
-    private WeatherPresenter presenter;
+    private LocationPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weather);
+        setContentView(R.layout.activity_location);
         ButterKnife.bind(this);
-        presenter = new WeatherPresenterImpl(App.getApiInteractor(), App.getRoomInteractor());
-        presenter.setView(this);
+
         initUI();
         initToolbar();
+        initNavigationDrawer();
+
+        presenter = new LocationPresenterImpl(App.getRoomInteractor());
+        presenter.setView(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         presenter.getAllLocations();
-        initNavigationDrawer();
     }
 
     @Override
@@ -69,8 +81,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     }
 
     private void initUI() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
-        viewPager = (ViewPager) findViewById(R.id.main_activity_view_pager);
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit(3);
         }
@@ -134,7 +144,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
                     setWeatherIcon(Constants.FOG);
                     break;
                 }
-
                 case Constants.CLOUD_CASE: {
                     setWeatherIcon(Constants.CLOUD);
                     break;
@@ -152,9 +161,37 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     }
 
     @Override
-    public void setAdapter(List<Location> locations) {
+    public void onLocationAdded(List<Location> locations) {
+        if (locations.isEmpty()){
+            changeViewPagerVisibility(false);
+            changeLocationsTvVisibility(true);
+        }else {
+            changeViewPagerVisibility(true);
+            changeLocationsTvVisibility(false);
+            setAdapter(locations);
+        }
+    }
+
+    private void changeViewPagerVisibility(boolean isVisible) {
+        if (isVisible){
+            viewPager.setVisibility(View.VISIBLE);
+        }else {
+            viewPager.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void changeLocationsTvVisibility(boolean isVisible) {
+        if (isVisible){
+            noLocationsTv.setVisibility(View.VISIBLE);
+        }else {
+            noLocationsTv.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void setAdapter(List<Location> locations) {
         adapter = new LocationPagerAdapter(getSupportFragmentManager());
         adapter.setAdapterData(locations);
         viewPager.setAdapter(adapter);
     }
+
 }
