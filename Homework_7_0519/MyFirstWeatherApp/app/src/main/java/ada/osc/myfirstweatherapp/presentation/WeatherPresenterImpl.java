@@ -1,17 +1,9 @@
 package ada.osc.myfirstweatherapp.presentation;
 
-import android.util.Log;
-import android.view.View;
-
-import java.util.List;
-
 import ada.osc.myfirstweatherapp.interaction.ApiInteractor;
-import ada.osc.myfirstweatherapp.interaction.RoomCallback;
 import ada.osc.myfirstweatherapp.interaction.RoomInteractor;
-import ada.osc.myfirstweatherapp.model.Location;
 import ada.osc.myfirstweatherapp.model.WeatherResponse;
-import ada.osc.myfirstweatherapp.network.ApiService;
-import ada.osc.myfirstweatherapp.view.Weather.WeatherView;
+import ada.osc.myfirstweatherapp.view.weather.WeatherView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

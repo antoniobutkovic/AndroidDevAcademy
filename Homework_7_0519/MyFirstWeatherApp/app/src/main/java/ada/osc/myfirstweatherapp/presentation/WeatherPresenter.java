@@ -1,16 +1,12 @@
 package ada.osc.myfirstweatherapp.presentation;
 
-import android.view.View;
-
-import ada.osc.myfirstweatherapp.view.Weather.WeatherView;
+import ada.osc.myfirstweatherapp.view.weather.WeatherView;
 
 /**
  * Created by Toni on 5/30/2018.
  */
 
-public interface WeatherPresenter {
-
-    void setView(WeatherView weatherView);
+public interface WeatherPresenter extends BasePresenter<WeatherView>{
 
     void getWeatherInfo(String locationName);
 

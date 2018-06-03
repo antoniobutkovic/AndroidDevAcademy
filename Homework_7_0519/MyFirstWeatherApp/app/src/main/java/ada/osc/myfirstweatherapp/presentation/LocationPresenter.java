@@ -7,9 +7,7 @@ import ada.osc.myfirstweatherapp.view.location.LocationView;
  * Created by Toni on 5/31/2018.
  */
 
-public interface LocationPresenter {
-
-    void setView(LocationView locationView);
+public interface LocationPresenter extends BasePresenter<LocationView>{
 
     void getAllLocations();
 

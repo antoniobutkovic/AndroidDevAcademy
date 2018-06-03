@@ -1,9 +1,5 @@
-package ada.osc.myfirstweatherapp.view.Weather;
+package ada.osc.myfirstweatherapp.view.weather;
 
-import java.util.List;
-
-import ada.osc.myfirstweatherapp.model.Location;
-import ada.osc.myfirstweatherapp.model.Main;
 import ada.osc.myfirstweatherapp.model.WeatherResponse;
 
 /**

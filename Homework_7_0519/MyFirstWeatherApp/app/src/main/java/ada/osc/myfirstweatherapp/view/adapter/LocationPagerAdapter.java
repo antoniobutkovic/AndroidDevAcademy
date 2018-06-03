@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ada.osc.myfirstweatherapp.model.Location;
-import ada.osc.myfirstweatherapp.view.Weather.WeatherFragment;
+import ada.osc.myfirstweatherapp.view.weather.WeatherFragment;
 
 public class LocationPagerAdapter extends FragmentPagerAdapter {
 

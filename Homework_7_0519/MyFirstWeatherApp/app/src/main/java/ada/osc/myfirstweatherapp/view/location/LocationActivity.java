@@ -16,16 +16,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import ada.osc.myfirstweatherapp.App;
-import ada.osc.myfirstweatherapp.Constants;
 import ada.osc.myfirstweatherapp.R;
 import ada.osc.myfirstweatherapp.model.Location;
-import ada.osc.myfirstweatherapp.model.WeatherResponse;
 import ada.osc.myfirstweatherapp.presentation.LocationPresenter;
 import ada.osc.myfirstweatherapp.presentation.LocationPresenterImpl;
-import ada.osc.myfirstweatherapp.presentation.WeatherPresenter;
-import ada.osc.myfirstweatherapp.presentation.WeatherPresenterImpl;
-import ada.osc.myfirstweatherapp.view.Weather.WeatherFragment;
-import ada.osc.myfirstweatherapp.view.Weather.WeatherView;
 import ada.osc.myfirstweatherapp.view.adapter.LocationPagerAdapter;
 import ada.osc.myfirstweatherapp.view.addLocation.NewLocationActivity;
 import butterknife.BindView;
