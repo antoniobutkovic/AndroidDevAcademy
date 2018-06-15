@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import javax.inject.Inject;
+
 import ada.osc.myfirstweatherapp.App;
 import ada.osc.myfirstweatherapp.Constants;
 import ada.osc.myfirstweatherapp.R;
@@ -48,7 +50,8 @@ public class WeatherFragment extends Fragment implements WeatherView{
     @BindView(R.id.weather_display_weather_icon_image_view)
     ImageView weatherIcon;
 
-    private WeatherPresenter presenter;
+    @Inject
+    WeatherPresenter presenter;
 
     public static WeatherFragment newInstance(String city) {
         Bundle data = new Bundle();
@@ -70,7 +73,7 @@ public class WeatherFragment extends Fragment implements WeatherView{
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        presenter = new WeatherPresenterImpl(App.getApiInteractor());
+        App.getComponent().inject(this);
         presenter.setView(this);
 
     }

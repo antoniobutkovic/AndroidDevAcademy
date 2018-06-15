@@ -40,10 +40,5 @@ public class LocationPresenterImpl implements LocationPresenter{
         public void onReadLocationsSuccess(List<Location> locations) {
             view.onLocationAdded(locations);
         }
-
-        @Override
-        public void onLocationDuplicateCheckFinished() {
-
-        }
     };
 }

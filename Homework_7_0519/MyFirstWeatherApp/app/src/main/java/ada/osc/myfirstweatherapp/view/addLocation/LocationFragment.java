@@ -3,13 +3,13 @@ package ada.osc.myfirstweatherapp.view.addLocation;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import javax.inject.Inject;
 
 import ada.osc.myfirstweatherapp.App;
 import ada.osc.myfirstweatherapp.R;
@@ -25,7 +25,8 @@ import butterknife.OnClick;
  */
 public class LocationFragment extends Fragment implements NewLocationView{
 
-    private NewLocationPresenter presenter;
+    @Inject
+    NewLocationPresenter presenter;
 
     @BindView(R.id.fragment_add_location_enter_city_edit_text)
     EditText cityEt;
@@ -40,7 +41,7 @@ public class LocationFragment extends Fragment implements NewLocationView{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        presenter = new NewLocationPresenterImpl(App.getRoomInteractor());
+        App.getComponent().inject(this);
         presenter.setView(this);
     }
 

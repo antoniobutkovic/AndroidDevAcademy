@@ -48,10 +48,5 @@ public class NewLocationPresenterImpl implements NewLocationPresenter{
         public void onReadLocationsSuccess(List<Location> locations) {
 
         }
-
-        @Override
-        public void onLocationDuplicateCheckFinished() {
-            view.onLocationAlreadyExistsError();
-        }
     };
 }

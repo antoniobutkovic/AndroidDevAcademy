@@ -10,13 +10,15 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import ada.osc.myfirstweatherapp.R;
+import butterknife.BindView;
 
 /**
  * Created by Filip on 10/02/2016.
  */
 public class NewLocationActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,11 +39,10 @@ public class NewLocationActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (mToolbar != null) {
-            mToolbar.setTitle(R.string.add_location_activity_title);
+        if (toolbar != null) {
+            toolbar.setTitle(R.string.add_location_activity_title);
         }
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);

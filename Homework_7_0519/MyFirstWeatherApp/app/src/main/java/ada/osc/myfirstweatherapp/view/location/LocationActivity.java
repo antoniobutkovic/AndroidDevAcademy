@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ada.osc.myfirstweatherapp.App;
 import ada.osc.myfirstweatherapp.R;
 import ada.osc.myfirstweatherapp.model.Location;
@@ -24,6 +26,7 @@ import ada.osc.myfirstweatherapp.view.adapter.LocationPagerAdapter;
 import ada.osc.myfirstweatherapp.view.addLocation.NewLocationActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.Provides;
 
 public class LocationActivity extends AppCompatActivity implements LocationView {
 
@@ -43,7 +46,9 @@ public class LocationActivity extends AppCompatActivity implements LocationView 
     TextView noLocationsTv;
 
     private LocationPagerAdapter adapter;
-    private LocationPresenter presenter;
+
+    @Inject
+    LocationPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +56,12 @@ public class LocationActivity extends AppCompatActivity implements LocationView 
         setContentView(R.layout.activity_location);
         ButterKnife.bind(this);
 
+        App.getComponent().inject(this);
+
         initUI();
         initToolbar();
         initNavigationDrawer();
 
-        presenter = new LocationPresenterImpl(App.getRoomInteractor());
         presenter.setView(this);
     }
 

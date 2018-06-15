@@ -1,8 +1,5 @@
 package ada.osc.myfirstweatherapp.interaction;
 
-import android.util.Log;
-
-import ada.osc.myfirstweatherapp.App;
 import ada.osc.myfirstweatherapp.model.Location;
 import ada.osc.myfirstweatherapp.persistance.LocationDao;
 
